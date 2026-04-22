@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leanne Summers — AI Workflow Designer</title>
+  <meta name="description" content="I build AI-powered workflows for solo business owners who are ready to stop managing their tools and start trusting them. Based in Vietnam. Working everywhere.">
+  <meta property="og:title" content="Leanne Summers — AI Workflow Designer">
+  <meta property="og:description" content="I build AI-powered workflows for solo business owners who are ready to stop managing their tools and start trusting them. Based in Vietnam. Working everywhere.">
+  <meta property="og:image" content="/og-image.jpg">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --color-ink:       #272525;
+      --color-charcoal:  #404040;
+      --color-mid-grey:  #8C8C8C;
+      --color-silver:    #A6A8AA;
+      --color-fog:       #D0D1D3;
+      --color-coral:     #FE7061;
+      --color-coral-hover: #E55A4A;
+      --color-teal:      #03A6A6;
+      --color-white:     #FFFFFF;
+
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Sans Pro', system-ui, sans-serif;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+
+      --max-w:      1200px;
+      --max-w-body: 720px;
+      --max-w-sub:  620px;
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--color-charcoal);
+      background: var(--color-white);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--color-teal); text-decoration: underline; }
+    a:hover { color: var(--color-coral); }
+
+    /* ─── Skip navigation ────────────────────────────────────── */
+    .skip-nav {
+      position: absolute;
+      top: -100%;
+      left: 8px;
+      z-index: 200;
+      padding: 8px 16px;
+      background: var(--color-ink);
+      color: var(--color-white) !important;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+    }
+    .skip-nav:focus { top: 8px; }
+
+    /* ─── Layout helpers ─────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .container--narrow {
+      max-width: var(--max-w-body);
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    /* ─── Eyebrow ────────────────────────────────────────────── */
+    .eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-mid-grey);
+      margin-bottom: 16px;
+    }
+
+    /* ─── Accent rule ────────────────────────────────────────── */
+    .accent-rule {
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--color-coral);
+      margin: 16px auto 0;
+    }
+    .accent-rule--left { margin-left: 0; }
+
+    /* ─── Buttons ────────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+    }
+    .btn--primary {
+      background: var(--color-coral);
+      color: var(--color-white);
+      padding: 14px 32px;
+      border: none;
+    }
+    .btn--primary:hover {
+      background: var(--color-coral-hover);
+      color: var(--color-white);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-ink);
+      border: 2px solid var(--color-ink);
+      padding: 12px 30px;
+    }
+    .btn--ghost:hover {
+      background: var(--color-ink);
+      color: var(--color-white);
+    }
+    .btn--ghost-white {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid var(--color-white);
+      padding: 12px 30px;
+    }
+    .btn--ghost-white:hover {
+      background: var(--color-white);
+      color: var(--color-teal);
+    }
+    .btn--full { width: 100%; text-align: center; }
+
+    /* ─── Navigation ─────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-fog);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav__monogram {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid var(--color-ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-ink);
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .nav__wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav__wordmark-name {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      color: var(--color-ink);
+    }
+    .nav__wordmark-name span:first-child { font-weight: 700; }
+    .nav__wordmark-name span:last-child  { font-weight: 600; }
+    .nav__wordmark-descriptor {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-mid-grey);
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+    .nav__links a:hover,
+    .nav__links a.active {
+      color: var(--color-coral);
+      text-decoration: underline;
+    }
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--color-ink);
+    }
+    /* Mobile overlay */
+    .nav__overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--color-white);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .nav__overlay.open { display: flex; }
+    .nav__overlay a {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+    .nav__overlay a:hover { color: var(--color-coral); }
+    .nav__overlay-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--color-ink);
+      line-height: 1;
+    }
+
+    /* ─── Sections ───────────────────────────────────────────── */
+    section { width: 100%; }
+    .section--white { background: var(--color-white); }
+    .section--fog   { background: var(--color-fog); }
+    .section--teal  { background: var(--color-teal); }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .hero {
+      padding: 128px 60px 96px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--color-ink);
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+    .hero__sub {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--color-charcoal);
+      max-width: var(--max-w-sub);
+      margin: 0 auto 40px;
+    }
+
+    /* ─── Story section ──────────────────────────────────────── */
+    .story {
+      padding: 96px 60px;
+      text-align: center;
+    }
+    .story__body {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--color-charcoal);
+      max-width: var(--max-w-body);
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+    .pull-quote {
+      max-width: var(--max-w-body);
+      margin: 40px auto 0;
+      padding-left: 24px;
+      border-left: 3px solid var(--color-coral);
+      text-align: left;
+    }
+    .pull-quote blockquote {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 24px;
+      color: var(--color-ink);
+      line-height: 1.4;
+    }
+    .pull-quote figcaption {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 28px;
+      color: var(--color-mid-grey);
+    }
+
+    /* ─── Home banner image ──────────────────────────────────── */
+    .home-banner {
+      margin: 0;
+      overflow: hidden;
+      max-height: 460px;
+      background: #111;
+    }
+    .home-banner img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: right center;
+      display: block;
+    }
+
+    /* ─── Services ───────────────────────────────────────────── */
+    .services {
+      padding: 96px 60px;
+      text-align: center;
+    }
+    .services h2 {
+      font-family: var(--font-heading);
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--color-ink);
+      max-width: var(--max-w-body);
+      margin: 0 auto 16px;
+    }
+    .services__sub {
+      font-size: 18px;
+      color: var(--color-charcoal);
+      max-width: var(--max-w-sub);
+      margin: 0 auto 56px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--color-white);
+      border: 1px solid var(--color-fog);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      text-align: left;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .card:hover {
+      border-color: var(--color-teal);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .card__icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 20px;
+      stroke: var(--color-teal);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .card h3 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--color-ink);
+      margin-bottom: 12px;
+    }
+    .card p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--color-charcoal);
+    }
+
+    /* ─── Big quote ──────────────────────────────────────────── */
+    .big-quote {
+      padding: 96px 60px;
+      text-align: center;
+    }
+    .big-quote blockquote {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 28px;
+      line-height: 1.4;
+      color: var(--color-ink);
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+    .big-quote figcaption {
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 15px;
+      color: var(--color-ink);
+    }
+
+    /* ─── CTA banner ─────────────────────────────────────────── */
+    .cta-banner {
+      padding: 96px 60px;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-heading);
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--color-white);
+      margin-bottom: 20px;
+    }
+    .cta-banner p {
+      font-size: 18px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.7);
+      max-width: var(--max-w-sub);
+      margin: 0 auto 40px;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .footer {
+      padding: 48px 60px;
+      border-top: 1px solid var(--color-fog);
+      text-align: center;
+    }
+    .footer p {
+      font-size: 13px;
+      color: var(--color-mid-grey);
+    }
+    .footer a {
+      color: var(--color-mid-grey);
+    }
+    .footer a:hover { color: var(--color-coral); }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .container, .container--narrow { padding: 0 24px; }
+      .nav__inner { padding: 0 24px; }
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .hero { padding: 100px 24px 64px; }
+      .hero h1 { font-size: 36px; }
+      .hero__sub { font-size: 17px; }
+      .story  { padding: 64px 24px; }
+      .home-banner img { height: 260px; }
+      .services { padding: 64px 24px; }
+      .services h2 { font-size: 28px; }
+      .big-quote { padding: 64px 24px; }
+      .big-quote blockquote { font-size: 22px; }
+      .cta-banner { padding: 64px 24px; }
+      .cta-banner h2 { font-size: 28px; }
+      .footer { padding: 40px 24px; }
+    }
+    @media (max-width: 640px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <!-- ─── Navigation ─────────────────────────────────────────── -->
+  <header>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Leanne Summers — AI Workflow Designer, home">
+        <div class="nav__monogram" aria-hidden="true">LS</div>
+        <div class="nav__wordmark">
+          <div class="nav__wordmark-name">
+            <span>Leanne</span> <span>Summers</span>
+          </div>
+          <div class="nav__wordmark-descriptor">AI Workflow Designer</div>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button type="button" class="nav__hamburger" aria-label="Open menu" aria-expanded="false" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  </header>
+
+  <!-- Mobile overlay -->
+  <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ─── Section 1: Hero ─────────────────────────────────── -->
+    <section class="section--white hero">
+      <span class="eyebrow">AI Workflow Designer</span>
+      <span class="accent-rule" aria-hidden="true"></span>
+      <h1>Your day, sorted before your coffee goes cold.</h1>
+      <p class="hero__sub">I build AI-powered workflows that gather everything, surface what matters, suggest what's next — and then get out of the way.</p>
+      <a href="contact.html" class="btn btn--primary">Tell me what's eating your mornings</a>
+    </section>
+
+    <!-- ─── Brand image ───────────────────────────────────────── -->
+    <figure class="home-banner">
+      <img src="images/leanne-summers.jpg" alt="Leanne Summers holding a branded LS mug, smiling" width="1512" height="630" loading="eager">
+    </figure>
+
+    <!-- ─── Section 2: Story intro ──────────────────────────── -->
+    <section class="section--white story">
+      <span class="eyebrow">AI workflows built by someone who actually uses this stuff.</span>
+      <div class="story__body">
+        <p>I'm not a developer. I'm a solo business owner who got fed up starting every day from scratch — scanning inboxes, piecing together what needed doing, rewriting the same emails, chasing the same things. The admin wasn't the work. The admin was getting in the way of the work.</p>
+        <p style="margin-top: 24px;">So I built systems. AI-powered ones, wired into the tools I already used, that did the gathering and sorting and surfacing for me. And now, before I've touched my coffee, the day is set up. Tasks are handled. It says: <em>all done, enjoy your day.</em></p>
+        <p style="margin-top: 24px;">Now I build those same systems for other solo business owners. Not demos. Not experiments. The real thing — built around how you actually work, handed over when it's done.</p>
+      </div>
+      <figure class="pull-quote">
+        <blockquote>"All done, enjoy your day."</blockquote>
+        <figcaption>What your morning could sound like.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── Section 3: Services ─────────────────────────────── -->
+    <section class="section--white services">
+      <span class="eyebrow">What I build</span>
+      <h2>The workflows that get your mornings back.</h2>
+      <p class="services__sub">Each system is built around your actual day — not a template, not a demo. Handed over when it's done, and working from day one.</p>
+      <div class="cards">
+
+        <article class="card">
+          <svg class="card__icon" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="13"/>
+            <polyline points="16 8 16 16 21 19"/>
+          </svg>
+          <h3>Morning workflow systems</h3>
+          <p>A single workflow that opens your day — pulling in what matters, surfacing what's urgent, and laying out what needs to happen. No inbox archaeology. No starting from scratch. Just clarity, ready and waiting.</p>
+        </article>
+
+        <article class="card">
+          <svg class="card__icon" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="4" y="4" width="24" height="24" rx="3"/>
+            <line x1="4" y1="12" x2="28" y2="12"/>
+            <line x1="12" y1="12" x2="12" y2="28"/>
+          </svg>
+          <h3>AI + Notion databases</h3>
+          <p>Notion built properly — with AI wired in. Databases that update themselves, surfaces that tell you what to do next, and a second brain that actually functions as one. Not a template dump. A working system.</p>
+        </article>
+
+        <article class="card">
+          <svg class="card__icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M6 16 C6 10, 14 6, 16 6 C18 6, 26 10, 26 16 C26 22, 18 26, 16 26 C14 26, 6 22, 6 16Z"/>
+            <polyline points="12 16 15 19 20 13"/>
+          </svg>
+          <h3>Repetitive task automation</h3>
+          <p>The things you do the same way every time — follow-ups, summaries, status updates, weekly reviews — handed to a system that does them without being asked. You keep doing the work only you can do.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─── Section 4: Big quote ─────────────────────────────── -->
+    <section class="section--fog big-quote">
+      <figure>
+        <blockquote>
+          "Before I've finished my coffee, my day is set up, my tasks are handled, and the system says — all done, enjoy your day."
+        </blockquote>
+        <figcaption>Me, every morning. You, after we're done.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── Section 5: CTA banner ────────────────────────────── -->
+    <section class="section--teal cta-banner">
+      <h2>Tell me what's eating your mornings.</h2>
+      <p>No pitch deck. No jargon. Just tell me what you do, what's repetitive and draining, and what you wish you could hand off.</p>
+      <a href="contact.html" class="btn btn--ghost-white">Get in touch</a>
+    </section>
+
+  </main>
+
+  <!-- ─── Footer ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <p><small>&copy; <time datetime="2026">2026</time> Leanne Summers. <a href="contact.html">Contact</a></small></p>
+  </footer>
+
+  <script>
+    var navToggle = document.getElementById('nav-toggle');
+    var navOverlay = document.getElementById('nav-overlay');
+    var navClose = document.getElementById('nav-close');
+
+    navToggle.addEventListener('click', function() {
+      navOverlay.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navClose.focus();
+    });
+
+    navClose.addEventListener('click', function() {
+      navOverlay.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.focus();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && navOverlay.classList.contains('open')) {
+        navOverlay.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
+      }
+    });
+  </script>
+</body>
+</html>
