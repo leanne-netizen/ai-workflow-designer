@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token Burn Dashboard — Leanne Summers</title>
+  <meta name="description" content="Track what work you're giving AI, how much it uses, and whether it's paying off.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────────── */
+    :root {
+      --color-ink:         #272525;
+      --color-charcoal:    #404040;
+      --color-mid-grey:    #8C8C8C;
+      --color-silver:      #A6A8AA;
+      --color-fog:         #D0D1D3;
+      --color-fog-bg:      #F4F4F5;
+      --color-coral:       #FE7061;
+      --color-coral-hover: #E55A4A;
+      --color-teal:        #03A6A6;
+      --color-white:       #FFFFFF;
+      --color-indigo:      #6366F1;
+      --color-amber:       #D97706;
+
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Sans Pro', system-ui, sans-serif;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+
+      --max-w:      1200px;
+      --max-w-body: 720px;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--color-charcoal);
+      background: var(--color-white);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--color-teal); text-decoration: underline; }
+    a:hover { color: var(--color-coral); }
+
+    .skip-nav {
+      position: absolute; top: -100%; left: 8px; z-index: 200;
+      padding: 8px 16px; background: var(--color-ink); color: var(--color-white) !important;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      border-radius: var(--radius-sm);
+    }
+    .skip-nav:focus { top: 8px; }
+
+    /* ─── Nav ─────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--color-white); border-bottom: 1px solid var(--color-fog);
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; max-width: var(--max-w); margin: 0 auto; padding: 0 60px;
+    }
+    .nav__logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav__monogram {
+      width: 40px; height: 40px; border: 1.5px solid var(--color-ink); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--color-ink);
+      letter-spacing: 0.02em; flex-shrink: 0;
+    }
+    .nav__wordmark { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav__wordmark-name { font-family: var(--font-heading); font-size: 17px; color: var(--color-ink); }
+    .nav__wordmark-name span:first-child { font-weight: 700; }
+    .nav__wordmark-name span:last-child  { font-weight: 600; }
+    .nav__wordmark-descriptor {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--color-mid-grey);
+    }
+    .nav__links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav__links a {
+      font-size: 15px; font-weight: 600; color: var(--color-ink); text-decoration: none;
+    }
+    .nav__links a:hover, .nav__links a.active { color: var(--color-coral); text-decoration: underline; }
+    .nav__hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav__hamburger span { display: block; width: 24px; height: 1.5px; background: var(--color-ink); }
+    .nav__overlay {
+      display: none; position: fixed; inset: 0; background: var(--color-white); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+    }
+    .nav__overlay.open { display: flex; }
+    .nav__overlay a { font-size: 22px; font-weight: 600; color: var(--color-ink); text-decoration: none; }
+    .nav__overlay a:hover { color: var(--color-coral); }
+    .nav__overlay-close {
+      position: absolute; top: 24px; right: 24px;
+      background: none; border: none; font-size: 28px; cursor: pointer;
+      color: var(--color-ink); line-height: 1;
+    }
+
+    /* ─── Layout ──────────────────────────────────────────────── */
+    .container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 60px; }
+    section { width: 100%; }
+    .section--white { background: var(--color-white); }
+    .section--fog   { background: var(--color-fog-bg); }
+    .section--teal  { background: var(--color-teal); }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    .footer { padding: 48px 60px; border-top: 1px solid var(--color-fog); text-align: center; }
+    .footer p { font-size: 13px; color: var(--color-mid-grey); }
+    .footer a { color: var(--color-mid-grey); }
+    .footer a:hover { color: var(--color-coral); }
+
+    /* ─── Dashboard header ────────────────────────────────────── */
+    .dash-header { padding: 112px 0 64px; }
+    .dash-header .eyebrow {
+      display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--color-mid-grey); margin-bottom: 12px;
+    }
+    .dash-header h1 {
+      font-family: var(--font-heading); font-size: 40px; font-weight: 700;
+      line-height: 1.15; color: var(--color-ink); margin-bottom: 16px;
+    }
+    .dash-header__sub {
+      font-size: 18px; line-height: 1.65; color: var(--color-charcoal);
+      max-width: 620px; margin-bottom: 32px;
+    }
+    .fidelity-key { display: flex; gap: 12px; flex-wrap: wrap; }
+    .fidelity-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 100px; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--color-fog); background: var(--color-white);
+    }
+    .fidelity-pill__dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .fidelity-pill--exact   .fidelity-pill__dot { background: var(--color-teal); }
+    .fidelity-pill--estimate .fidelity-pill__dot {
+      background: var(--color-coral); opacity: 0.6;
+    }
+    .fidelity-pill__tools { color: var(--color-mid-grey); font-weight: 400; }
+
+    /* ─── Stat cards ──────────────────────────────────────────── */
+    .stats-section { padding: 0 0 56px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .stat-card {
+      background: var(--color-white); border: 1px solid var(--color-fog);
+      border-radius: var(--radius-md); padding: 28px 28px 24px;
+    }
+    .stat-card__label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--color-mid-grey); margin-bottom: 8px;
+    }
+    .stat-card__value {
+      font-family: var(--font-heading); font-size: 36px; font-weight: 700;
+      color: var(--color-ink); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-card__sub { font-size: 13px; color: var(--color-mid-grey); }
+    .stat-card__note {
+      margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--color-fog);
+      font-size: 12px; color: var(--color-silver);
+    }
+    .stat-card--exact   { border-top: 3px solid var(--color-teal); }
+    .stat-card--active  { border-top: 3px solid var(--color-indigo); }
+    .stat-card--estimate { border-top: 3px solid var(--color-coral); }
+
+    /* ─── Chart sections ──────────────────────────────────────── */
+    .chart-section { padding: 56px 0; }
+    .chart-card {
+      background: var(--color-white); border: 1px solid var(--color-fog);
+      border-radius: var(--radius-md); padding: 28px;
+    }
+    .chart-card__header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 8px;
+    }
+    .chart-card__title {
+      font-family: var(--font-heading); font-size: 20px; font-weight: 600;
+      color: var(--color-ink);
+    }
+    .chart-card__note { font-size: 12px; color: var(--color-mid-grey); }
+    .chart-wrap { position: relative; height: 300px; }
+
+    /* ─── Split grid ──────────────────────────────────────────── */
+    .split-section { padding: 56px 0; }
+    .split-grid {
+      display: grid; grid-template-columns: minmax(280px, 2fr) minmax(320px, 3fr);
+      gap: 20px; align-items: start;
+    }
+    .donut-wrap { position: relative; height: 280px; }
+
+    /* ─── Top days table ──────────────────────────────────────── */
+    .top-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .top-table th {
+      text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-mid-grey);
+      border-bottom: 1px solid var(--color-fog);
+    }
+    .top-table td { padding: 10px 12px; border-bottom: 1px solid var(--color-fog); }
+    .top-table tr:last-child td { border-bottom: none; }
+    .top-table .num { text-align: right; font-weight: 600; color: var(--color-ink); white-space: nowrap; }
+    .top-table .note { color: var(--color-charcoal); }
+    .top-table tr:hover td { background: var(--color-fog-bg); }
+
+    /* ─── Today section ───────────────────────────────────────── */
+    .today-section { padding: 56px 0; }
+    .today-section h2 {
+      font-family: var(--font-heading); font-size: 22px; font-weight: 600;
+      color: var(--color-ink); margin-bottom: 20px;
+    }
+    .today-empty { color: var(--color-mid-grey); font-size: 15px; }
+    .today-sessions { display: flex; flex-direction: column; gap: 12px; }
+    .session-item {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 16px;
+      padding: 16px 20px; border: 1px solid var(--color-fog);
+      border-radius: var(--radius-md); background: var(--color-white);
+    }
+    .session-item__tool { }
+    .session-item__info { }
+    .session-item__project { font-weight: 600; color: var(--color-ink); font-size: 15px; }
+    .session-item__meta { font-size: 13px; color: var(--color-mid-grey); }
+    .session-item__tokens { font-weight: 600; color: var(--color-ink); text-align: right; white-space: nowrap; }
+    .session-item__outcome { font-size: 12px; color: var(--color-mid-grey); text-align: right; }
+
+    /* ─── Session log ─────────────────────────────────────────── */
+    .log-section { padding: 56px 0; }
+    .log-section h2 {
+      font-family: var(--font-heading); font-size: 22px; font-weight: 600;
+      color: var(--color-ink); margin-bottom: 6px;
+    }
+    .log-section .log-sub { font-size: 14px; color: var(--color-mid-grey); margin-bottom: 20px; }
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--color-fog); border-radius: var(--radius-md); }
+    .session-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 860px; }
+    .session-table th {
+      text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-mid-grey);
+      background: var(--color-fog-bg); border-bottom: 1px solid var(--color-fog);
+      white-space: nowrap;
+    }
+    .session-table td { padding: 10px 14px; border-bottom: 1px solid var(--color-fog); vertical-align: middle; }
+    .session-table tr:last-child td { border-bottom: none; }
+    .session-table tr:hover td { background: var(--color-fog-bg); }
+    .session-table .num { text-align: right; font-weight: 600; color: var(--color-ink); white-space: nowrap; }
+    .session-table .next { color: var(--color-charcoal); font-size: 13px; max-width: 180px; }
+    .session-table .date-col { white-space: nowrap; color: var(--color-mid-grey); }
+
+    /* ─── Badges ──────────────────────────────────────────────── */
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 3px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.03em; white-space: nowrap;
+    }
+    .badge--cc      { background: rgba(3,166,166,0.1);   color: #037878; }
+    .badge--codex   { background: rgba(99,102,241,0.12); color: #4338CA; }
+    .badge--clai    { background: rgba(254,112,97,0.1);  color: #CC3B29; }
+    .badge--gpt     { background: rgba(217,119,6,0.12);  color: #92400E; }
+    .badge--exact   { background: rgba(3,166,166,0.1);   color: #037878; }
+    .badge--estimate{ background: rgba(254,112,97,0.1);  color: #CC3B29; }
+    .badge--accepted{ background: rgba(16,185,129,0.12); color: #065F46; }
+    .badge--partial { background: rgba(245,158,11,0.12); color: #92400E; }
+    .badge--abandoned{background: rgba(239,68,68,0.12);  color: #991B1B; }
+    .badge--computer{ background: rgba(99,102,241,0.08); color: #4338CA; }
+    .badge--assistant{background: rgba(140,140,140,0.1); color: #555; }
+
+    /* ─── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .nav__inner { padding: 0 24px; }
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .footer { padding: 40px 24px; }
+      .dash-header { padding: 96px 0 48px; }
+      .dash-header h1 { font-size: 30px; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .split-grid { grid-template-columns: 1fr; }
+      .chart-wrap { height: 220px; }
+      .donut-wrap { height: 240px; }
+      .session-item { grid-template-columns: auto 1fr; }
+      .session-item__tokens { display: none; }
+    }
+    @media (max-width: 640px) {
+      .fidelity-key { flex-direction: column; }
+      .stat-card__value { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo" aria-label="Leanne Summers — home">
+          <div class="nav__monogram" aria-hidden="true">LS</div>
+          <div class="nav__wordmark">
+            <div class="nav__wordmark-name"><span>Leanne</span> <span>Summers</span></div>
+            <div class="nav__wordmark-descriptor">AI Workflow Designer</div>
+          </div>
+        </a>
+        <ul class="nav__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="dashboard.html" class="active" aria-current="page">Dashboard</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button type="button" class="nav__hamburger" aria-label="Open menu" aria-expanded="false" id="nav-toggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ─── Page header ─────────────────────────────────────── -->
+    <section class="section--fog dash-header">
+      <div class="container">
+        <span class="eyebrow">Token Burn</span>
+        <h1>Token Burn Dashboard</h1>
+        <p class="dash-header__sub">Track what work you're giving AI, how much it uses, and whether it's paying off. High burn is not a goal. A useful result is.</p>
+        <div class="fidelity-key">
+          <div class="fidelity-pill fidelity-pill--exact">
+            <span class="fidelity-pill__dot" aria-hidden="true"></span>
+            <span>Exact</span>
+            <span class="fidelity-pill__tools">Claude Code · Codex</span>
+          </div>
+          <div class="fidelity-pill fidelity-pill--estimate">
+            <span class="fidelity-pill__dot" aria-hidden="true"></span>
+            <span>Estimated</span>
+            <span class="fidelity-pill__tools">Claude.ai · ChatGPT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Summary stats ────────────────────────────────────── -->
+    <section class="section--fog stats-section">
+      <div class="container">
+        <div class="stat-grid">
+          <div class="stat-card stat-card--exact">
+            <div class="stat-card__label">Exact Tokens — 30d</div>
+            <div class="stat-card__value" id="stat-exact">—</div>
+            <div class="stat-card__sub">Claude Code + Codex</div>
+            <div class="stat-card__note">Measured to the token from tool logs</div>
+          </div>
+          <div class="stat-card stat-card--active">
+            <div class="stat-card__label">Active Days — 30d</div>
+            <div class="stat-card__value" id="stat-active">—</div>
+            <div class="stat-card__sub">Days with recorded activity</div>
+            <div class="stat-card__note">All tools combined</div>
+          </div>
+          <div class="stat-card stat-card--estimate">
+            <div class="stat-card__label">Estimated Activity — 30d</div>
+            <div class="stat-card__value" id="stat-estimate">—</div>
+            <div class="stat-card__sub">Claude.ai + ChatGPT</div>
+            <div class="stat-card__note">Activity-based estimate — not folded into exact total</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 60-day burn chart ─────────────────────────────────── -->
+    <section class="section--white chart-section">
+      <div class="container">
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <span class="chart-card__title">60-Day Token Burn</span>
+            <span class="chart-card__note">Apr 11 – Jun 9, 2026 · Stacked exact + estimated · Hover for breakdown</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="dailyChart" aria-label="Daily token burn over 60 days" role="img"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Model split + top days ───────────────────────────── -->
+    <section class="section--fog split-section">
+      <div class="container">
+        <div class="split-grid">
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <span class="chart-card__title">Model Distribution</span>
+              <span class="chart-card__note">All 60 days</span>
+            </div>
+            <div class="donut-wrap">
+              <canvas id="splitChart" aria-label="Token distribution by model" role="img"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <span class="chart-card__title">Top Days</span>
+              <span class="chart-card__note">By total tokens</span>
+            </div>
+            <table class="top-table" aria-label="Top 8 days by token usage">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>What drove it</th>
+                  <th style="text-align:right">Tokens</th>
+                </tr>
+              </thead>
+              <tbody id="top-days-body"></tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Today ─────────────────────────────────────────────── -->
+    <section class="section--white today-section">
+      <div class="container">
+        <h2>Today — Jun 9</h2>
+        <div class="today-sessions" id="today-sessions"></div>
+      </div>
+    </section>
+
+    <!-- ─── Session log ───────────────────────────────────────── -->
+    <section class="section--fog log-section">
+      <div class="container">
+        <h2>Session Log</h2>
+        <p class="log-sub">Recent sessions — what work moved, what came back useful, what to try next.</p>
+        <div class="table-scroll">
+          <table class="session-table" aria-label="Session log">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Tool</th>
+                <th>Project</th>
+                <th>Job type</th>
+                <th style="text-align:right">Tokens</th>
+                <th>Fidelity</th>
+                <th>Outcome</th>
+                <th>Next move</th>
+              </tr>
+            </thead>
+            <tbody id="log-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p><small>&copy; <time datetime="2026">2026</time> Leanne Summers. <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></small></p>
+  </footer>
+
+  <script>
+  (function () {
+
+    // ─── Raw data ───────────────────────────────────────────────
+    // [claudeCode_k, codex_k, claudeAI_k, chatGPT_k] in thousands of tokens
+    // Index 0 = Apr 11 2026, Index 59 = Jun 9 2026
+    var RAW = [
+      [800,0,0,0],       // 0  Apr 11 Fri
+      [0,0,120,90],      // 1  Apr 12 Sat
+      [0,0,0,0],         // 2  Apr 13 Sun
+      [1100,0,200,0],    // 3  Apr 14 Mon
+      [0,2800,0,0],      // 4  Apr 15 Tue
+      [1400,0,0,70],     // 5  Apr 16 Wed
+      [0,0,180,0],       // 6  Apr 17 Thu
+      [900,3200,0,0],    // 7  Apr 18 Fri
+      [0,0,0,0],         // 8  Apr 19 Sat
+      [0,0,95,0],        // 9  Apr 20 Sun
+      [2100,0,0,0],      // 10 Apr 21 Mon
+      [0,4500,0,150],    // 11 Apr 22 Tue
+      [1700,0,0,0],      // 12 Apr 23 Wed
+      [2400,28800,0,0],  // 13 Apr 24 Thu ← 31.2M spike
+      [1100,0,0,0],      // 14 Apr 25 Fri
+      [0,0,0,0],         // 15 Apr 26 Sat
+      [0,0,130,0],       // 16 Apr 27 Sun
+      [3200,0,0,0],      // 17 Apr 28 Mon
+      [0,5600,200,0],    // 18 Apr 29 Tue
+      [900,0,0,80],      // 19 Apr 30 Wed
+      [1800,0,0,0],      // 20 May 1 Thu
+      [0,0,250,90],      // 21 May 2 Fri
+      [0,0,0,0],         // 22 May 3 Sat
+      [0,0,0,60],        // 23 May 4 Sun
+      [4200,24700,0,0],  // 24 May 5 Mon ← 28.9M spike
+      [2800,0,0,0],      // 25 May 6 Tue
+      [0,3100,180,0],    // 26 May 7 Wed
+      [1500,0,0,0],      // 27 May 8 Thu
+      [0,0,0,95],        // 28 May 9 Fri
+      [0,0,120,0],       // 29 May 10 Sat
+      [0,0,0,0],         // 30 May 11 Sun
+      [2600,0,0,0],      // 31 May 12 Mon
+      [0,6700,0,0],      // 32 May 13 Tue
+      [1200,0,300,0],    // 33 May 14 Wed
+      [3800,0,0,0],      // 34 May 15 Thu
+      [0,0,200,70],      // 35 May 16 Fri
+      [0,0,0,0],         // 36 May 17 Sat
+      [0,0,145,0],       // 37 May 18 Sun
+      [2200,3400,0,0],   // 38 May 19 Mon
+      [900,0,0,85],      // 39 May 20 Tue
+      [1800,20600,0,0],  // 40 May 21 Wed ← 22.4M spike
+      [0,12800,0,0],     // 41 May 22 Thu ← 12.8M
+      [4600,0,0,0],      // 42 May 23 Fri
+      [0,0,0,110],       // 43 May 24 Sat
+      [0,0,0,0],         // 44 May 25 Sun
+      [1100,0,180,0],    // 45 May 26 Mon
+      [0,5200,0,0],      // 46 May 27 Tue
+      [2700,0,0,75],     // 47 May 28 Wed
+      [1600,0,250,0],    // 48 May 29 Thu
+      [0,0,0,90],        // 49 May 30 Fri
+      [0,0,80,0],        // 50 May 31 Sat
+      [0,8100,0,0],      // 51 Jun 1 Sun ← 8.1M
+      [3100,0,0,0],      // 52 Jun 2 Mon
+      [900,0,0,65],      // 53 Jun 3 Tue
+      [2400,3200,200,0], // 54 Jun 4 Wed
+      [1700,0,0,0],      // 55 Jun 5 Thu
+      [0,0,150,80],      // 56 Jun 6 Fri
+      [0,0,0,0],         // 57 Jun 7 Sat
+      [0,0,120,0],       // 58 Jun 8 Sun
+      [2400,0,0,0]       // 59 Jun 9 Mon — today
+    ];
+
+    // Session log data
+    var SESSIONS = [
+      { date:'Jun 9',  tool:'Claude Code', project:'Client workflow audit',        job:'Computer',  tokens:2400000,  fidelity:'exact',    outcome:'Accepted', next:'Deploy to client' },
+      { date:'Jun 6',  tool:'Claude.ai',   project:'Article outline — AI habits',  job:'Assistant', tokens:150000,   fidelity:'estimate', outcome:'Accepted', next:'Expand to full draft' },
+      { date:'Jun 6',  tool:'ChatGPT',     project:'Market research Q&A',          job:'Assistant', tokens:80000,    fidelity:'estimate', outcome:'Partial',  next:'Better source definition' },
+      { date:'Jun 4',  tool:'Codex',       project:'Website redesign — portfolio', job:'Computer',  tokens:3200000,  fidelity:'exact',    outcome:'Accepted', next:'Ship to staging' },
+      { date:'Jun 4',  tool:'Claude Code', project:'Portfolio copy — polish pass', job:'Computer',  tokens:2400000,  fidelity:'exact',    outcome:'Accepted', next:'Client review' },
+      { date:'Jun 4',  tool:'Claude.ai',   project:'Proposal copy — onboarding',   job:'Assistant', tokens:200000,   fidelity:'estimate', outcome:'Accepted', next:'Send to client' },
+      { date:'Jun 2',  tool:'Claude Code', project:'Notion automation — v3',       job:'Computer',  tokens:3100000,  fidelity:'exact',    outcome:'Accepted', next:'Document the workflow' },
+      { date:'Jun 1',  tool:'Codex',       project:'Content calendar automation',  job:'Computer',  tokens:8100000,  fidelity:'exact',    outcome:'Accepted', next:'Replicate for client 2' },
+      { date:'May 28', tool:'Claude Code', project:'Automation debug — triggers',  job:'Computer',  tokens:2700000,  fidelity:'exact',    outcome:'Accepted', next:'Add test coverage' },
+      { date:'May 27', tool:'Codex',       project:'Notion DB schema — phase 2',   job:'Computer',  tokens:5200000,  fidelity:'exact',    outcome:'Accepted', next:'Phase 3 planning' },
+      { date:'May 23', tool:'Claude Code', project:'Client delivery — final QA',   job:'Computer',  tokens:4600000,  fidelity:'exact',    outcome:'Accepted', next:'Invoice + handoff' },
+      { date:'May 22', tool:'Codex',       project:'Notion DB redesign',           job:'Computer',  tokens:12800000, fidelity:'exact',    outcome:'Accepted', next:'Turn into repeatable kit' },
+      { date:'May 21', tool:'Codex',       project:'Research — AI tools guide',    job:'Computer',  tokens:20600000, fidelity:'exact',    outcome:'Accepted', next:'Draft the guide post' },
+      { date:'May 21', tool:'Claude Code', project:'Research — formatting pass',   job:'Computer',  tokens:1800000,  fidelity:'exact',    outcome:'Accepted', next:'Merge with Codex output' },
+      { date:'May 15', tool:'Claude Code', project:'Client onboarding workflow',   job:'Computer',  tokens:3800000,  fidelity:'exact',    outcome:'Accepted', next:'Book install call' },
+      { date:'May 14', tool:'Claude.ai',   project:'Client proposal — draft',      job:'Assistant', tokens:300000,   fidelity:'estimate', outcome:'Accepted', next:'Sign and start' },
+      { date:'May 5',  tool:'Codex',       project:'Website build — full site',    job:'Computer',  tokens:24700000, fidelity:'exact',    outcome:'Accepted', next:'Point DNS, ship it' },
+      { date:'May 5',  tool:'Claude Code', project:'Website copy — polish',        job:'Computer',  tokens:4200000,  fidelity:'exact',    outcome:'Accepted', next:'Done' },
+      { date:'Apr 24', tool:'Codex',       project:'Research — competitive audit', job:'Computer',  tokens:28800000, fidelity:'exact',    outcome:'Accepted', next:'Turn into client brief' },
+      { date:'Apr 24', tool:'Claude Code', project:'Brief formatting + cleanup',   job:'Computer',  tokens:2400000,  fidelity:'exact',    outcome:'Accepted', next:'Client delivery' }
+    ];
+
+    // Top-day annotations
+    var TOP_NOTES = {
+      'Apr 24': 'Competitive audit — Codex deep research',
+      'May 5':  'Full website build + deploy',
+      'May 21': 'AI tools guide — parallel research',
+      'May 22': 'Notion DB redesign',
+      'May 13': 'Schema modelling — Codex',
+      'Jun 1':  'Content calendar automation',
+      'May 23': 'Client delivery QA',
+      'May 27': 'Notion DB phase 2',
+      'May 15': 'Client onboarding workflow',
+      'Apr 29': 'Notion integration build',
+    };
+
+    // ─── Helpers ───────────────────────────────────────────────
+    var START = new Date('2026-04-11T00:00:00');
+
+    function dayDate(i) {
+      var d = new Date(START);
+      d.setDate(d.getDate() + i);
+      return d;
+    }
+
+    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function fmtShort(d) {
+      return MONTHS[d.getMonth()] + ' ' + d.getDate();
+    }
+
+    function fmtTokens(n) {
+      if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+      if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+      if (n >= 1e3) return Math.round(n / 1e3) + 'K';
+      return String(n);
+    }
+
+    // ─── Stats ─────────────────────────────────────────────────
+    // Last 30 days = indices 30-59
+    var last30 = RAW.slice(30);
+    var exactLast30 = last30.reduce(function(s, d) { return s + (d[0] + d[1]) * 1000; }, 0);
+    var estimateLast30 = last30.reduce(function(s, d) { return s + (d[2] + d[3]) * 1000; }, 0);
+    var activeLast30 = last30.filter(function(d) {
+      return d[0] + d[1] + d[2] + d[3] > 0;
+    }).length;
+
+    document.getElementById('stat-exact').textContent    = fmtTokens(exactLast30);
+    document.getElementById('stat-active').textContent   = activeLast30;
+    document.getElementById('stat-estimate').textContent = '~' + fmtTokens(estimateLast30);
+
+    // ─── Chart: Daily burn ─────────────────────────────────────
+    var labels   = RAW.map(function(_, i) { return fmtShort(dayDate(i)); });
+    var ccData   = RAW.map(function(d) { return d[0] / 1000; }); // millions
+    var codData  = RAW.map(function(d) { return d[1] / 1000; });
+    var clData   = RAW.map(function(d) { return d[2] / 1000; });
+    var gptData  = RAW.map(function(d) { return d[3] / 1000; });
+
+    new Chart(document.getElementById('dailyChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Claude Code',      data: ccData,  backgroundColor: '#03A6A6',              stack: 's' },
+          { label: 'Codex',            data: codData, backgroundColor: '#6366F1',              stack: 's' },
+          { label: 'Claude.ai (est.)', data: clData,  backgroundColor: 'rgba(254,112,97,0.55)', stack: 's' },
+          { label: 'ChatGPT (est.)',   data: gptData, backgroundColor: 'rgba(217,119,6,0.55)',  stack: 's' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            stacked: true,
+            grid: { display: false },
+            ticks: {
+              font: { family: "'Source Sans Pro', sans-serif", size: 11 },
+              color: '#8C8C8C',
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 9
+            }
+          },
+          y: {
+            stacked: true,
+            grid: { color: 'rgba(0,0,0,0.05)' },
+            title: {
+              display: true, text: 'Tokens (millions)',
+              color: '#8C8C8C', font: { family: "'Source Sans Pro', sans-serif", size: 12 }
+            },
+            ticks: {
+              font: { family: "'Source Sans Pro', sans-serif", size: 11 },
+              color: '#8C8C8C',
+              callback: function(v) { return v + 'M'; }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 16, boxWidth: 12, boxHeight: 12,
+              font: { family: "'Source Sans Pro', sans-serif", size: 13 },
+              color: '#404040'
+            }
+          },
+          tooltip: {
+            callbacks: {
+              title: function(items) { return items[0].label; },
+              label: function(ctx) {
+                var v = ctx.parsed.y;
+                if (!v) return null;
+                var est = ctx.dataset.label.indexOf('est.') > -1 ? ' (estimated)' : ' (exact)';
+                return ' ' + ctx.dataset.label + ': ' + fmtTokens(v * 1e6) + est;
+              },
+              footer: function(items) {
+                var total = items.reduce(function(s, i) { return s + i.parsed.y; }, 0);
+                if (!total) return '';
+                return 'Total: ' + fmtTokens(total * 1e6);
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // ─── Chart: Model split doughnut ───────────────────────────
+    var totCC  = RAW.reduce(function(s, d) { return s + d[0] * 1000; }, 0);
+    var totCod = RAW.reduce(function(s, d) { return s + d[1] * 1000; }, 0);
+    var totCL  = RAW.reduce(function(s, d) { return s + d[2] * 1000; }, 0);
+    var totGPT = RAW.reduce(function(s, d) { return s + d[3] * 1000; }, 0);
+
+    new Chart(document.getElementById('splitChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Claude Code', 'Codex', 'Claude.ai (est.)', 'ChatGPT (est.)'],
+        datasets: [{
+          data: [totCC, totCod, totCL, totGPT],
+          backgroundColor: ['#03A6A6', '#6366F1', 'rgba(254,112,97,0.65)', 'rgba(217,119,6,0.65)'],
+          borderWidth: 2,
+          borderColor: '#F4F4F5'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '64%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 12, boxWidth: 12, boxHeight: 12,
+              font: { family: "'Source Sans Pro', sans-serif", size: 13 },
+              color: '#404040'
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+                var pct = ((ctx.parsed / total) * 100).toFixed(1);
+                return ' ' + fmtTokens(ctx.parsed) + ' (' + pct + '%)';
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // ─── Top days table ─────────────────────────────────────────
+    var dayTotals = RAW.map(function(d, i) {
+      var total = (d[0] + d[1] + d[2] + d[3]) * 1000;
+      return { i: i, total: total, label: fmtShort(dayDate(i)) };
+    });
+    dayTotals.sort(function(a, b) { return b.total - a.total; });
+    var top8 = dayTotals.slice(0, 8);
+
+    var tbody = document.getElementById('top-days-body');
+    top8.forEach(function(day) {
+      if (!day.total) return;
+      var note = TOP_NOTES[day.label] || '—';
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="date-col">' + day.label + '</td>' +
+        '<td class="note">' + note + '</td>' +
+        '<td class="num">' + fmtTokens(day.total) + '</td>';
+      tbody.appendChild(tr);
+    });
+
+    // ─── Today's sessions ──────────────────────────────────────
+    var todaySessions = SESSIONS.filter(function(s) { return s.date === 'Jun 9'; });
+    var todayEl = document.getElementById('today-sessions');
+    if (!todaySessions.length) {
+      todayEl.innerHTML = '<p class="today-empty">No sessions recorded yet today.</p>';
+    } else {
+      todaySessions.forEach(function(s) {
+        var div = document.createElement('div');
+        div.className = 'session-item';
+        div.innerHTML =
+          '<div class="session-item__tool">' + toolBadge(s.tool) + '</div>' +
+          '<div class="session-item__info">' +
+            '<div class="session-item__project">' + s.project + '</div>' +
+            '<div class="session-item__meta">' + s.job + ' work &middot; ' + s.fidelity + '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="session-item__tokens">' + (s.fidelity === 'estimate' ? '~' : '') + fmtTokens(s.tokens) + '</div>' +
+            '<div class="session-item__outcome">' + s.outcome + '</div>' +
+          '</div>';
+        todayEl.appendChild(div);
+      });
+    }
+
+    // ─── Session log table ─────────────────────────────────────
+    var logBody = document.getElementById('log-body');
+    SESSIONS.forEach(function(s) {
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="date-col">' + s.date + '</td>' +
+        '<td>' + toolBadge(s.tool) + '</td>' +
+        '<td>' + s.project + '</td>' +
+        '<td>' + jobBadge(s.job) + '</td>' +
+        '<td class="num">' + (s.fidelity === 'estimate' ? '~' : '') + fmtTokens(s.tokens) + '</td>' +
+        '<td>' + fidelityBadge(s.fidelity) + '</td>' +
+        '<td>' + outcomeBadge(s.outcome) + '</td>' +
+        '<td class="next">' + s.next + '</td>';
+      logBody.appendChild(tr);
+    });
+
+    // ─── Badge helpers ─────────────────────────────────────────
+    function toolBadge(tool) {
+      var cls = { 'Claude Code': 'cc', 'Codex': 'codex', 'Claude.ai': 'clai', 'ChatGPT': 'gpt' }[tool] || 'cc';
+      return '<span class="badge badge--' + cls + '">' + tool + '</span>';
+    }
+    function jobBadge(job) {
+      var cls = job === 'Computer' ? 'computer' : 'assistant';
+      return '<span class="badge badge--' + cls + '">' + job + '</span>';
+    }
+    function fidelityBadge(f) {
+      return '<span class="badge badge--' + f + '">' + f + '</span>';
+    }
+    function outcomeBadge(o) {
+      var cls = o.toLowerCase();
+      return '<span class="badge badge--' + cls + '">' + o + '</span>';
+    }
+
+    // ─── Nav toggle ────────────────────────────────────────────
+    var navToggle  = document.getElementById('nav-toggle');
+    var navOverlay = document.getElementById('nav-overlay');
+    var navClose   = document.getElementById('nav-close');
+
+    navToggle.addEventListener('click', function () {
+      navOverlay.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navClose.focus();
+    });
+    navClose.addEventListener('click', function () {
+      navOverlay.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.focus();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navOverlay.classList.contains('open')) {
+        navOverlay.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
+      }
+    });
+
+  }());
+  </script>
+</body>
+</html>
