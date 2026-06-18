@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — Leanne Summers, AI Workflow Designer</title>
+  <meta name="description" content="Terms of Service for Leanne Summers AI Workflow Designer.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-ink:         #272525;
+      --color-charcoal:    #404040;
+      --color-mid-grey:    #8C8C8C;
+      --color-silver:      #A6A8AA;
+      --color-fog:         #D0D1D3;
+      --color-coral:       #FE7061;
+      --color-coral-hover: #E55A4A;
+      --color-teal:        #03A6A6;
+      --color-white:       #FFFFFF;
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Sans Pro', system-ui, sans-serif;
+      --radius-sm: 4px;
+      --max-w:      1200px;
+      --max-w-body: 720px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: var(--color-charcoal); background: var(--color-white); }
+    img { display: block; max-width: 100%; }
+    a { color: var(--color-teal); text-decoration: underline; }
+    a:hover { color: var(--color-coral); }
+
+    .skip-nav { position: absolute; top: -100%; left: 8px; z-index: 200; padding: 8px 16px; background: var(--color-ink); color: var(--color-white) !important; font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; border-radius: var(--radius-sm); }
+    .skip-nav:focus { top: 8px; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--color-white); border-bottom: 1px solid var(--color-fog); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: var(--max-w); margin: 0 auto; padding: 0 60px; }
+    .nav__logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav__monogram { width: 40px; height: 40px; border: 1.5px solid var(--color-ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--color-ink); letter-spacing: 0.02em; flex-shrink: 0; }
+    .nav__wordmark { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav__wordmark-name { font-family: var(--font-heading); font-size: 17px; color: var(--color-ink); }
+    .nav__wordmark-name span:first-child { font-weight: 700; }
+    .nav__wordmark-name span:last-child  { font-weight: 600; }
+    .nav__wordmark-descriptor { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mid-grey); }
+    .nav__links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav__links a { font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--color-ink); text-decoration: none; }
+    .nav__links a:hover { color: var(--color-coral); text-decoration: underline; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav__hamburger span { display: block; width: 24px; height: 1.5px; background: var(--color-ink); }
+    .nav__overlay { display: none; position: fixed; inset: 0; background: var(--color-white); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+    .nav__overlay.open { display: flex; }
+    .nav__overlay a { font-family: var(--font-body); font-size: 22px; font-weight: 600; color: var(--color-ink); text-decoration: none; }
+    .nav__overlay a:hover { color: var(--color-coral); }
+    .nav__overlay-close { position: absolute; top: 24px; right: 24px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--color-ink); line-height: 1; }
+    .nav__overlay-links { list-style: none; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+
+    main { padding-top: 68px; }
+
+    .page-header { padding: 72px 60px 48px; background: var(--color-white); }
+    .page-header h1 { font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
+    .page-header .updated { font-size: 14px; color: var(--color-mid-grey); }
+
+    .prose { max-width: var(--max-w-body); margin: 0 auto; padding: 0 60px 96px; }
+    .prose h2 { font-family: var(--font-heading); font-size: 24px; font-weight: 600; color: var(--color-ink); margin: 48px 0 16px; }
+    .prose p { margin-bottom: 20px; }
+    .prose ul { margin: 0 0 20px 24px; }
+    .prose li { margin-bottom: 8px; }
+
+    .footer { padding: 48px 60px; border-top: 1px solid var(--color-fog); text-align: center; }
+    .footer p { font-size: 13px; color: var(--color-mid-grey); }
+    .footer a { color: var(--color-mid-grey); }
+    .footer a:hover { color: var(--color-coral); }
+
+    @media (max-width: 768px) {
+      .nav__inner { padding: 0 24px; }
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .page-header { padding: 56px 24px 32px; }
+      .page-header h1 { font-size: 28px; }
+      .prose { padding: 0 24px 64px; }
+      .footer { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <header>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Leanne Summers — AI Workflow Designer, home">
+        <span class="nav__monogram" aria-hidden="true">LS</span>
+        <span class="nav__wordmark">
+          <span class="nav__wordmark-name"><span>Leanne</span> <span>Summers</span></span>
+          <span class="nav__wordmark-descriptor">AI Workflow Designer</span>
+        </span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button type="button" class="nav__hamburger" aria-label="Open menu" aria-expanded="false" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  </header>
+
+  <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
+    <ul class="nav__overlay-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content">
+    <header class="page-header">
+      <h1>Terms of Service</h1>
+      <p class="updated">Last updated: 18 June 2026</p>
+    </header>
+
+    <article class="prose">
+      <p>PLEASE READ THESE TERMS AND CONDITIONS OF USE CAREFULLY BEFORE USING THIS WEBSITE</p>
+
+      <p>Welcome to my website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with my privacy policy and website disclaimer, govern theleannesummers.com's relationship with you in relation to your use of this website.</p>
+
+      <p>By using this website, you signify your acceptance of these terms and conditions of use. For the purposes of these terms and conditions, "Us", "I", "My", "Our" and "We" refers to theleannesummers.com and Leanne Summers and "You" and "Your" refers to you, the client, visitor, website user or person using my website.</p>
+
+      <h2>Amendment of Terms</h2>
+
+      <p>I reserve the right to change, modify, add or remove portions of these terms at any time. Please check these terms regularly prior to using my website to ensure you are aware of any changes. I will endeavour to highlight any significant or substantive changes to you where possible. If you choose to use my website then I will regard that use as conclusive evidence of your agreement and acceptance that these terms govern your and theleannesummers.com's rights and obligations to each other.</p>
+
+      <h2>Limitation of Liability</h2>
+
+      <p>It is an essential pre-condition to you using my website that you agree and accept that theleannesummers.com is not legally responsible for any loss or damage you might suffer related to your use of the website, whether from errors or from omissions in my documents or information, any goods or services I may offer or from any other use of the website. This includes your use or reliance on any third party content, links, comments or advertisements. Your use of, or reliance on, any information or materials on this website is entirely at your own risk, for which I shall not be liable.</p>
+
+      <p>It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific, personal requirements. You acknowledge that such information and materials may contain inaccuracies or errors and I expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.</p>
+
+      <h2>Links to Other Websites</h2>
+
+      <p>theleannesummers.com may from time to time provide on its website, links to other websites, advertisements and information on those websites for your convenience. This does not necessarily imply sponsorship, endorsement, or approval or arrangement between theleannesummers.com and the owners of those websites. theleannesummers.com takes no responsibility for any of the content found on the linked websites.</p>
+
+      <p>Leanne Summers' website may contain information or advertisements provided by third parties for which theleannesummers.com accepts no responsibility whatsoever for any information or advice provided to you directly by third parties. I am making a 'recommendation' only and am not providing any advice nor do I take any responsibility for any advice received in this regard.</p>
+
+      <h2>Disclaimer</h2>
+
+      <p>To the fullest extent permitted by law, theleannesummers.com absolutely disclaims all warranties, expressed or implied, including, but not limited to, implied warranties of merchantability and fitness for any particular purpose. theleannesummers.com gives no warranty that the documents, goods or services will be free of errors, or that defects will be corrected, or that our website or its server is free of viruses or any other harmful components.</p>
+
+      <p>Whilst I, at all times endeavour to have the most accurate, reliable and up-to-date information on my website, I do not warrant or make any representations regarding the use or the result of the use of any document, product, service, link or information in its website or as to their correctness, suitability, accuracy, reliability, or otherwise.</p>
+
+      <p>It is your sole responsibility and not the responsibility of theleannesummers.com to bear any and all costs of servicing, repairs, or correction. The applicable law in your state or territory may not permit these exclusions, particularly the exclusions of some implied warranties. Some of the above may not apply to you but you must ensure you are aware of any risk you may be taking by using this website or any products or services that may be offered through it. It is your responsibility to do so.</p>
+
+      <h2>Your Privacy</h2>
+
+      <p>At theleannesummers.com, I am committed to protecting your privacy. I use the information I collect about you to maximise the services that I provide to you. I respect the privacy and confidentiality of the information provided by you. Please read my separate <a href="privacy.html">Privacy Policy</a> carefully.</p>
+
+      <p>You may change your details at any time by advising me in writing via email. All information I receive from customers is protected by secure servers. theleannesummers.com's secure server software encrypts all customer information before it is sent to me. Furthermore, all customer data collected is secured against unauthorised use or access. Credit card information is not stored by me on servers.</p>
+
+      <h2>Third Parties</h2>
+
+      <p>I do not and will not sell or deal in personal or customer information. I may however use in a general sense without any reference to your name, your information to create marketing statistics, identify user demands and assist in meeting customer needs generally. In addition, I may use the information that you provide to improve my website and services but not for any other use.</p>
+
+      <h2>Disclosure of Information</h2>
+
+      <p>theleannesummers.com may be required, in certain circumstances, to disclose information in good faith and where theleannesummers.com is required to do so in the following circumstances: by law or by any court; to enforce the terms of any of my customer agreements; or to protect the rights, property or safety of my customers or third parties.</p>
+
+      <h2>Exclusion of Competitors</h2>
+
+      <p>If you are in the business of creating similar documents, goods or services for the purpose of providing them for a fee to users, whether they be business users or domestic users, then you are a competitor of theleannesummers.com.</p>
+
+      <p>theleannesummers.com expressly excludes and does not permit you to use or access this website, to download any documents or information from its website or obtain any such documents or information through a third party. If you breach this term then theleannesummers.com will hold you fully responsible for any loss that I may sustain and further hold you accountable for all profits that you might make from such unpermitted and improper use. theleannesummers.com reserves the right to exclude and deny any person access to my website, services or information in my sole discretion.</p>
+
+      <h2>Copyright, Trademark and Restrictions of Use</h2>
+
+      <p>This website contains material which is owned by or licensed to me. This material includes, but is not limited to, the design, layout, look, appearance, trademarks and graphics. You are not permitted to reproduce the documents, information or materials on the website for the purposes of sale or the use by any third party. In particular, you are not permitted to republish, upload, transmit electronically or otherwise or distribute any of the materials, documents or products that may be available for download from time to time on this website.</p>
+
+      <p>theleannesummers.com expressly reserves all copyright and trademark in all documents, information and materials on this website and I reserve the right to take action against you if you breach any of these terms.</p>
+
+      <p>Any redistribution or reproduction of part or all of the contents in any form is prohibited other than the following: you may print or download to a local hard disk extracts for your personal and non-commercial use only; and you may copy the content to individual third parties for their personal use, but only if you acknowledge the website as the source of the material.</p>
+
+      <p>You may not, except with my express written permission, distribute or commercially exploit the content. Nor may you transmit it or store it in any other website or other form of electronic retrieval system.</p>
+
+      <h2>Whole Agreement</h2>
+
+      <p>These terms and conditions represent the whole agreement between you and theleannesummers.com concerning your use and access to theleannesummers.com's website and your use and access to the documents and information on it. No other term is to be included in this agreement except where it is required to be included by any legislation of the Commonwealth or any State or Territory. All implied terms except those implied by statute and which cannot be expressly excluded are hereby expressly excluded.</p>
+
+      <h2>Exclusion of Unenforceable Terms</h2>
+
+      <p>Where any clause or term above would by any applicable statute be illegal, void, or unenforceable in any State or Territory (or other particular named region) then such a clause shall not apply in that State or Territory and shall be deemed never to have been included in these terms and conditions in that State or Territory. Such a clause if legal and enforceable in any other State or Territory shall continue to be fully enforceable and part of this agreement in those other States and Territories. The deemed exclusion of any term pursuant to this paragraph shall not affect or modify the full enforceability and construction of the other clauses of these terms and conditions.</p>
+
+      <h2>AI Workflow Design Services</h2>
+
+      <p>To engage my services, a formal quote must be agreed. All proposals, quotes and projects are subject to the client terms included in my Project Proposal. When you engage my services, you agree that I am reliant on the information supplied by you in order to provide the services. I cannot be held responsible for any results based on inaccurate or incomplete client information, nor for how you choose to use or implement the outputs of my services.</p>
+
+      <p>This website may contain samples of my client work. You are at no time permitted to copy, modify or use in full, all or any part of these materials.</p>
+
+      <h2>Jurisdiction</h2>
+
+      <p>This agreement and this website are subject to the laws of Vietnam. If there is a dispute between you and theleannesummers.com that results in litigation then you must submit to the jurisdiction of the courts of Vietnam.</p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><small>&copy; <time datetime="2026">2026</time> Leanne Summers. <a href="index.html">Home</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></small></p>
+  </footer>
+
+  <script>
+    var navToggle = document.getElementById('nav-toggle');
+    var navOverlay = document.getElementById('nav-overlay');
+    var navClose = document.getElementById('nav-close');
+    navToggle.addEventListener('click', function() { navOverlay.classList.add('open'); navToggle.setAttribute('aria-expanded', 'true'); navClose.focus(); });
+    navClose.addEventListener('click', function() { navOverlay.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.focus(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && navOverlay.classList.contains('open')) { navOverlay.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.focus(); } });
+  </script>
+</body>
+</html>

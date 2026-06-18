@@ -273,6 +273,13 @@
       color: var(--color-ink);
       line-height: 1;
     }
+    .nav__overlay-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
 
     /* ─── Sections ───────────────────────────────────────────── */
     section { width: 100%; }
@@ -508,13 +515,13 @@
   <nav class="nav" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Leanne Summers — AI Workflow Designer, home">
-        <div class="nav__monogram" aria-hidden="true">LS</div>
-        <div class="nav__wordmark">
-          <div class="nav__wordmark-name">
+        <span class="nav__monogram" aria-hidden="true">LS</span>
+        <span class="nav__wordmark">
+          <span class="nav__wordmark-name">
             <span>Leanne</span> <span>Summers</span>
-          </div>
-          <div class="nav__wordmark-descriptor">AI Workflow Designer</div>
-        </div>
+          </span>
+          <span class="nav__wordmark-descriptor">AI Workflow Designer</span>
+        </span>
       </a>
       <ul class="nav__links">
         <li><a href="index.html" class="active" aria-current="page">Home</a></li>
@@ -531,9 +538,11 @@
   <!-- Mobile overlay -->
   <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <ul class="nav__overlay-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </div>
 
   <main id="main-content">
@@ -545,7 +554,7 @@
           <span class="eyebrow">AI Workflow Designer</span>
           <span class="accent-rule accent-rule--left" aria-hidden="true"></span>
           <h1>Your day, sorted before your coffee goes cold.</h1>
-          <p class="hero__sub">I build AI-powered workflows that gather everything, surface what matters, suggest what's next — and then get out of the way.</p>
+          <p class="hero__sub">I build AI-powered workflows that understand your business and priorities, surface what matters, and suggest what's next — supervised, understandable, and with you making the calls that matter.</p>
           <a href="contact.html" class="btn btn--primary">Tell me what's eating your mornings</a>
         </div>
       </div>
@@ -560,7 +569,7 @@
       <div class="story__body">
         <p>I'm not a developer. I'm a solo business owner who got fed up starting every day from scratch — scanning inboxes, piecing together what needed doing, rewriting the same emails, chasing the same things. The admin wasn't the work. The admin was getting in the way of the work.</p>
         <p style="margin-top: 24px;">So I built systems. AI-powered ones, wired into the tools I already used, that did the gathering and sorting and surfacing for me. And now, before I've touched my coffee, the day is set up. Tasks are handled. It says: <em>all done, enjoy your day.</em></p>
-        <p style="margin-top: 24px;">Now I build those same systems for other solo business owners. Not demos. Not experiments. The real thing — built around how you actually work, handed over when it's done.</p>
+        <p style="margin-top: 24px;">Now I build those same systems for other solo business owners. Not demos. Not experiments. The real thing — built around how you actually work, supervised at every step, handed over when it's done.</p>
       </div>
       <figure class="pull-quote">
         <blockquote>"All done, enjoy your day."</blockquote>

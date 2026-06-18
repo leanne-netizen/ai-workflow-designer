@@ -219,6 +219,13 @@
       color: var(--color-ink);
       line-height: 1;
     }
+    .nav__overlay-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
 
     /* ─── Page wrapper ───────────────────────────────────────── */
     main { padding-top: 68px; }
@@ -353,6 +360,21 @@
       text-align: center;
     }
 
+    /* ─── Field validation errors ─────────────────────────────── */
+    .field-error {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--color-coral);
+    }
+    .form-error-global {
+      max-width: var(--max-w-form);
+      margin: 0 auto 24px;
+      font-size: 14px;
+      color: var(--color-coral);
+      text-align: center;
+    }
+
     /* ─── Success message (hidden by default) ────────────────── */
     .form-success {
       display: none;
@@ -363,7 +385,6 @@
       max-width: var(--max-w-form);
       margin: 0 auto;
     }
-    .form-success.visible { display: block; }
     .form-success h3 {
       font-family: var(--font-heading);
       font-size: 26px;
@@ -417,13 +438,13 @@
   <nav class="nav" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Leanne Summers — AI Workflow Designer, home">
-        <div class="nav__monogram" aria-hidden="true">LS</div>
-        <div class="nav__wordmark">
-          <div class="nav__wordmark-name">
+        <span class="nav__monogram" aria-hidden="true">LS</span>
+        <span class="nav__wordmark">
+          <span class="nav__wordmark-name">
             <span>Leanne</span> <span>Summers</span>
-          </div>
-          <div class="nav__wordmark-descriptor">AI Workflow Designer</div>
-        </div>
+          </span>
+          <span class="nav__wordmark-descriptor">AI Workflow Designer</span>
+        </span>
       </a>
       <ul class="nav__links">
         <li><a href="index.html">Home</a></li>
@@ -439,20 +460,22 @@
 
   <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <ul class="nav__overlay-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </div>
 
   <main id="main-content">
 
     <!-- ─── Section 1: Header ───────────────────────────────── -->
-    <section class="contact-header">
+    <header class="contact-header">
       <span class="eyebrow">Contact</span>
       <span class="accent-rule" aria-hidden="true"></span>
       <h1>Tell me what's eating your mornings.</h1>
       <p>No pitch deck. No jargon. Just tell me what you do, what's repetitive and draining, and what you wish you could hand off. We'll figure out if I can help.</p>
-    </section>
+    </header>
 
     <!-- ─── Section 2: Form + TidyCal ───────────────────────── -->
     <section class="contact-body">
@@ -463,11 +486,12 @@
         <p>I read every message personally and reply within 2 business days.</p>
       </div>
 
+      <div data-fs-error class="form-error-global" aria-live="polite"></div>
       <form
         class="contact-form"
         id="contact-form"
         name="contact"
-        action="#"
+        action="https://formspree.io/f/myklbbry"
         method="POST"
         novalidate
       >
@@ -480,7 +504,9 @@
             placeholder="Your name"
             required
             autocomplete="name"
+            data-fs-field
           >
+          <span data-fs-error="name" class="field-error" aria-live="polite"></span>
         </div>
 
         <div class="form-field">
@@ -492,7 +518,9 @@
             placeholder="you@example.com"
             required
             autocomplete="email"
+            data-fs-field
           >
+          <span data-fs-error="email" class="field-error" aria-live="polite"></span>
         </div>
 
         <div class="form-field">
@@ -503,7 +531,9 @@
             name="what-you-do"
             placeholder="A sentence or two about your business"
             required
+            data-fs-field
           >
+          <span data-fs-error="what-you-do" class="field-error" aria-live="polite"></span>
         </div>
 
         <div class="form-field">
@@ -515,7 +545,9 @@
             rows="6"
             style="min-height: 140px;"
             required
+            data-fs-field
           ></textarea>
+          <span data-fs-error="mornings" class="field-error" aria-live="polite"></span>
         </div>
 
         <div class="form-field">
@@ -526,16 +558,18 @@
             placeholder="If a system could take something off your plate completely, what would it be?"
             rows="4"
             style="min-height: 100px;"
+            data-fs-field
           ></textarea>
+          <span data-fs-error="hand-off" class="field-error" aria-live="polite"></span>
         </div>
 
         <div class="form-submit">
-          <button type="submit" class="btn btn--primary btn--full">Send it over</button>
+          <button type="submit" class="btn btn--primary btn--full" data-fs-submit-btn>Send it over</button>
         </div>
         <p class="form-note">I read every message personally and reply within 2 business days.</p>
       </form>
 
-      <div class="form-success" id="form-success" role="status" aria-live="polite">
+      <div class="form-success" id="form-success" data-fs-success role="status" aria-live="polite">
         <h3>Message sent.</h3>
         <p>Thanks for getting in touch. I'll read this today and reply within 2 business days.</p>
       </div>
@@ -557,7 +591,7 @@
           Example: data-path="leanne/discovery-call"
           Find it in your TidyCal dashboard under Booking Pages > Share.
         -->
-        <div id="tidycal-embed" data-path="YOUR-USERNAME/YOUR-EVENT-TYPE"></div>
+        <div id="tidycal-embed" data-path="theleannesummers/30-minute-meeting"></div>
         <script src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
       </div>
 
@@ -566,7 +600,7 @@
   </main>
 
   <footer class="footer">
-    <p><small>&copy; <time datetime="2026">2026</time> Leanne Summers. <a href="about.html">About</a></small></p>
+    <p><small>&copy; <time datetime="2026">2026</time> Leanne Summers. <a href="about.html">About</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></small></p>
   </footer>
 
   <script>
@@ -594,32 +628,10 @@
       }
     });
 
-    document.getElementById('contact-form').addEventListener('submit', handleSubmit);
-
-    function handleSubmit(e) {
-      e.preventDefault();
-      const form = document.getElementById('contact-form');
-      const success = document.getElementById('form-success');
-
-      // Basic validation
-      const required = form.querySelectorAll('[required]');
-      let valid = true;
-      required.forEach(function(field) {
-        if (!field.value.trim()) {
-          field.focus();
-          valid = false;
-        }
-      });
-      if (!valid) return;
-
-      // If you're using a form backend (Netlify, Formspree, etc.),
-      // replace this block with a fetch() POST to your endpoint.
-      // For now it shows the success state immediately.
-      form.style.display = 'none';
-      success.classList.add('visible');
-      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contact-form', formId: 'myklbbry' });
   </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>

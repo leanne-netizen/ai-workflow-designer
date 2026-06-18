@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Leanne Summers, AI Workflow Designer</title>
+  <meta name="description" content="Privacy Policy for Leanne Summers AI Workflow Designer.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-ink:         #272525;
+      --color-charcoal:    #404040;
+      --color-mid-grey:    #8C8C8C;
+      --color-silver:      #A6A8AA;
+      --color-fog:         #D0D1D3;
+      --color-coral:       #FE7061;
+      --color-coral-hover: #E55A4A;
+      --color-teal:        #03A6A6;
+      --color-white:       #FFFFFF;
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Sans Pro', system-ui, sans-serif;
+      --radius-sm: 4px;
+      --max-w:      1200px;
+      --max-w-body: 720px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: var(--color-charcoal); background: var(--color-white); }
+    img { display: block; max-width: 100%; }
+    a { color: var(--color-teal); text-decoration: underline; }
+    a:hover { color: var(--color-coral); }
+
+    .skip-nav { position: absolute; top: -100%; left: 8px; z-index: 200; padding: 8px 16px; background: var(--color-ink); color: var(--color-white) !important; font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; border-radius: var(--radius-sm); }
+    .skip-nav:focus { top: 8px; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--color-white); border-bottom: 1px solid var(--color-fog); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: var(--max-w); margin: 0 auto; padding: 0 60px; }
+    .nav__logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav__monogram { width: 40px; height: 40px; border: 1.5px solid var(--color-ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--color-ink); letter-spacing: 0.02em; flex-shrink: 0; }
+    .nav__wordmark { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav__wordmark-name { font-family: var(--font-heading); font-size: 17px; color: var(--color-ink); }
+    .nav__wordmark-name span:first-child { font-weight: 700; }
+    .nav__wordmark-name span:last-child  { font-weight: 600; }
+    .nav__wordmark-descriptor { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mid-grey); }
+    .nav__links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav__links a { font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--color-ink); text-decoration: none; }
+    .nav__links a:hover { color: var(--color-coral); text-decoration: underline; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav__hamburger span { display: block; width: 24px; height: 1.5px; background: var(--color-ink); }
+    .nav__overlay { display: none; position: fixed; inset: 0; background: var(--color-white); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+    .nav__overlay.open { display: flex; }
+    .nav__overlay a { font-family: var(--font-body); font-size: 22px; font-weight: 600; color: var(--color-ink); text-decoration: none; }
+    .nav__overlay a:hover { color: var(--color-coral); }
+    .nav__overlay-close { position: absolute; top: 24px; right: 24px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--color-ink); line-height: 1; }
+    .nav__overlay-links { list-style: none; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+
+    main { padding-top: 68px; }
+
+    .page-header { padding: 72px 60px 48px; background: var(--color-white); }
+    .page-header h1 { font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--color-ink); margin-bottom: 8px; }
+    .page-header .updated { font-size: 14px; color: var(--color-mid-grey); }
+
+    .prose { max-width: var(--max-w-body); margin: 0 auto; padding: 0 60px 96px; }
+    .prose h2 { font-family: var(--font-heading); font-size: 24px; font-weight: 600; color: var(--color-ink); margin: 48px 0 16px; }
+    .prose p { margin-bottom: 20px; }
+    .prose ul { margin: 0 0 20px 24px; }
+    .prose li { margin-bottom: 8px; }
+
+    .footer { padding: 48px 60px; border-top: 1px solid var(--color-fog); text-align: center; }
+    .footer p { font-size: 13px; color: var(--color-mid-grey); }
+    .footer a { color: var(--color-mid-grey); }
+    .footer a:hover { color: var(--color-coral); }
+
+    @media (max-width: 768px) {
+      .nav__inner { padding: 0 24px; }
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .page-header { padding: 56px 24px 32px; }
+      .page-header h1 { font-size: 28px; }
+      .prose { padding: 0 24px 64px; }
+      .footer { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <header>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Leanne Summers — AI Workflow Designer, home">
+        <span class="nav__monogram" aria-hidden="true">LS</span>
+        <span class="nav__wordmark">
+          <span class="nav__wordmark-name"><span>Leanne</span> <span>Summers</span></span>
+          <span class="nav__wordmark-descriptor">AI Workflow Designer</span>
+        </span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button type="button" class="nav__hamburger" aria-label="Open menu" aria-expanded="false" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  </header>
+
+  <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
+    <ul class="nav__overlay-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content">
+    <header class="page-header">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: 18 June 2026</p>
+    </header>
+
+    <article class="prose">
+      <p>PLEASE READ THIS PRIVACY POLICY CAREFULLY BEFORE USING THIS WEBSITE</p>
+
+      <p>At theleannesummers.com, I am committed to protecting your privacy as a customer and an online visitor to my website. I use the information I collect about you to maximise the services that I provide to you. I respect the privacy and confidentiality of the information provided by you and adhere to the Australian Privacy Principles. Please read my privacy policy below carefully.</p>
+
+      <h2>Information I Collect From You</h2>
+
+      <p>In the course of your visits to this website or use of the products and services, I may obtain the following information about you: name, company name, email address, telephone number, credit card details, billing address, geographic location, IP address, support queries and social media handles (together 'Personal Data').</p>
+
+      <p>My services are not directed to persons under 18 and I do not knowingly collect Personal Data from anyone under 18. If I become aware that a child under 18 has provided me with Personal Data, I will delete that information as quickly as possible. If you are the parent or guardian of a child and you believe they have provided me with Personal Data without your consent, then please contact me.</p>
+
+      <p>You can review, correct, update or delete your Personal Data by contacting me directly.</p>
+
+      <h2>How Do I Use Your Information</h2>
+
+      <p>Personally Identifiable Information: I use the information I collect to deliver services to you, including: communicating with you, providing technical support, notifying you of updates and offers, sharing useful content, measuring customer satisfaction, diagnosing problems and providing you with a personalised website experience.</p>
+
+      <p>Marketing communications are only sent to you if you have requested them via the contact form. You can opt out of marketing communications at any time by emailing me and your request will be actioned immediately.</p>
+
+      <p>Non-Personally Identifiable Information: I also use the information I collect in aggregated and anonymised forms to improve services, including: administering this website, producing reports and analytics, identifying user demands and assisting in meeting customer needs generally.</p>
+
+      <h2>Storage and Security of Your Information</h2>
+
+      <p>I will use all reasonable means to protect the confidentiality of your Personal Data while in my possession or control. All information I receive from you is stored and protected on secure servers from unauthorised use or access. Credit card information is encrypted before transmission and is not stored by me on my servers.</p>
+
+      <p>To enable me to deliver services, I may transfer information that I collect about you, including Personal Data, across borders for storage and processing in countries other than Australia. If your Personal Data is transferred and processed outside Australia, it will only be transferred to countries with adequate privacy protections.</p>
+
+      <p>I retain your personal information for as long as needed to provide services to you and as otherwise necessary to comply with legal obligations, resolve disputes and enforce our agreements.</p>
+
+      <p>In the event there is a breach of my security and your Personal Data is compromised, I will promptly notify you in compliance with the applicable law.</p>
+
+      <h2>Cookies and Pixels</h2>
+
+      <p>A cookie is a small file placed in your web browser that collects information about your web browsing behaviour. Use of cookies allows a website to tailor its configuration to your needs and preferences. Cookies do not access information stored on your computer or any Personal Data (e.g. name, address, email address or telephone number). Most web browsers automatically accept cookies but you can choose to reject cookies by changing your browser settings. This may, however, prevent you from taking full advantage of the website.</p>
+
+      <p>This website uses cookies to analyse website traffic and help provide a better website visitor experience. In addition, cookies and pixels may be used to serve relevant ads to website visitors through third party services such as Google Adwords and Facebook Adverts. These ads may appear on this website or other websites you visit.</p>
+
+      <p>This website loads fonts via Google Fonts, which may result in a small data transfer to Google servers. No personally identifiable information is shared in this process.</p>
+
+      <h2>Leanne Summers Responsibilities Under EU General Data Protection Regulation (GDPR)</h2>
+
+      <p>I welcome the GDPR as an important step forward in streamlining data protection requirements across the EU. If you are a resident of the EU or UK you have certain rights and protections under the GDPR regarding the processing of your Personal Data.</p>
+
+      <p>I collect, use and store your Personal Data to enable me to provide you with my services and information about them. I rely on the following lawful means of processing your Personal Data:</p>
+
+      <ul>
+        <li>Where it is necessary to fulfil a contract with you. This includes where I collect your Personal Data to enable me to provide you with my services.</li>
+        <li>Where you have given me valid consent to use your Personal Data, I will rely on that consent and only use the Personal Data for the specific purpose for which you have given consent.</li>
+      </ul>
+
+      <p>I may also process your Personal Data where it is to further my legitimate interests which could include usage statistics, analytics and internal analysis so I can improve my services to you.</p>
+
+      <p>Your rights as an EU or UK resident: if you are a resident of the EU or UK, you have various rights including the:</p>
+
+      <ul>
+        <li>Right to be informed</li>
+        <li>Right of access</li>
+        <li>Right to rectification</li>
+        <li>Right to object</li>
+        <li>Right to restriction of processing</li>
+        <li>Right to erasure or to be forgotten</li>
+        <li>Right to data portability</li>
+        <li>Right not to be subject to automated processing</li>
+      </ul>
+
+      <p>If you want to access your Personal Data or ask for the information to be corrected, please contact me. In some circumstances, you also have a right to object to or ask that I restrict certain processing activities or delete your Personal Data.</p>
+
+      <h2>Withdrawing Your Consent</h2>
+
+      <p>You can withdraw your consent to my collection or processing of your Personal Data by contacting me directly. If you withdraw your consent to the use of your Personal Data, you may not have access to my services and I might not be able to provide you with my services. In some circumstances, where I have a legal basis to do so, I may continue to process your information after you have withdrawn consent — for example, if it is necessary to comply with an independent legal obligation or to protect my legitimate interest in keeping my services secure.</p>
+
+      <h2>My Compliance</h2>
+
+      <p>I comply with the GDPR protection directives set out by the EU and UK regarding the collection, use and retention of Personal Data from EU member countries and the UK. All Personal Data stored on my platform is treated as confidential. It is stored securely and is only accessed by authorised personnel. My collection is limited in relation to what is necessary, for the purpose for which the Personal Data is processed, and kept only for so long as is necessary for that purpose. I implement and maintain appropriate technical, security and organisational measures to protect Personal Data against unauthorised or unlawful processing or use, and against accidental loss, destruction, damage, theft or disclosure.</p>
+
+      <h2>Your Acknowledgement</h2>
+
+      <p>By providing me with your Personal Data, you consent to me disclosing it to third parties who reside outside the EU or UK. I will ensure that those third parties are GDPR compliant.</p>
+
+      <h2>Sharing Your Information With Third Parties</h2>
+
+      <p>I do not and will not sell or deal in Personal Data or any customer information. Your Personal Data details are only disclosed to third party suppliers when it is required by law, for goods or services which you have purchased, for payment processing or to protect my copyright, trademarks and other legal rights.</p>
+
+      <p>This website uses Formspree to process contact form submissions. Messages submitted via the contact form are routed through Formspree's servers before being delivered to me. Formspree's privacy policy governs how they handle that data.</p>
+
+      <p>To the extent that I do share your Personal Data with a service provider, I would only do so if that party has agreed to comply with my privacy standards as described in this privacy policy and in accordance with applicable law. My contracts with third parties prohibit them from using any of your Personal Data for any purpose other than that for which it was shared.</p>
+
+      <h2>Disclosure of Your Information</h2>
+
+      <p>I may from time to time need to disclose certain information, which may include your Personal Data, to comply with a legal requirement, such as a law, regulation, court order, subpoena, warrant, in the course of a legal proceeding or in response to a law enforcement agency request. Also, I may use your Personal Data to protect the rights, property or safety of theleannesummers.com, my customers or third parties.</p>
+
+      <p>If there is a change of control in my business (whether by merger, sale, transfer of assets or otherwise) customer information, which may include your Personal Data, could be transferred to a purchaser under a confidentiality agreement. I would only disclose your Personal Data in good faith and where required by any of the above circumstances.</p>
+
+      <h2>Links to Other Websites</h2>
+
+      <p>This website may contain links to other websites. These links are meant for your convenience only. Links to third party websites do not constitute sponsorship or endorsement or approval of these websites. Please be aware that I am not responsible for the privacy practices of such other websites. I encourage users to be aware, when they leave this website, to read the privacy statements of each and every website that collects personally identifiable information. This privacy policy applies solely to information collected by this website.</p>
+
+      <h2>Change in Privacy Policy</h2>
+
+      <p>As I plan to ensure my privacy policy remains current, this policy is subject to change. I may modify this policy at any time, in my sole discretion, and all modifications will be effective immediately upon posting on this website. Please return periodically to review my privacy policy.</p>
+
+      <h2>Contact Me</h2>
+
+      <p>If you have any questions or concerns at any time about my privacy policy or the use of your Personal Data, please contact me at <a href="mailto:leanne@theleannesummers.com">leanne@theleannesummers.com</a> and I will respond within 48 hours.</p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><small>&copy; <time datetime="2026">2026</time> Leanne Summers. <a href="index.html">Home</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></small></p>
+  </footer>
+
+  <script>
+    var navToggle = document.getElementById('nav-toggle');
+    var navOverlay = document.getElementById('nav-overlay');
+    var navClose = document.getElementById('nav-close');
+    navToggle.addEventListener('click', function() { navOverlay.classList.add('open'); navToggle.setAttribute('aria-expanded', 'true'); navClose.focus(); });
+    navClose.addEventListener('click', function() { navOverlay.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.focus(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && navOverlay.classList.contains('open')) { navOverlay.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.focus(); } });
+  </script>
+</body>
+</html>

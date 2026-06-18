@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Leanne Summers, AI Workflow Designer</title>
-  <meta name="description" content="I run two businesses from a small house in Vietnam. One of them taught me why workflow systems are worth building properly. Here's the actual story.">
+  <meta name="description" content="I run a wedding and consultancy business in Vietnam. AI is how they both keep running (and me sane). Here's the actual story.">
   <meta property="og:title" content="About — Leanne Summers, AI Workflow Designer">
-  <meta property="og:description" content="I run two businesses from a small house in Vietnam. One of them taught me why workflow systems are worth building properly.">
+  <meta property="og:description" content="I run a wedding and consultancy business in Vietnam. AI is how they both keep running (and me sane).">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -231,6 +231,13 @@
       color: var(--color-ink);
       line-height: 1;
     }
+    .nav__overlay-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
 
     /* ─── Page wrapper ───────────────────────────────────────── */
     main { padding-top: 68px; }
@@ -305,7 +312,8 @@
       font-style: italic;
       font-size: 20px;
       color: var(--color-ink);
-      display: block;
+    }
+    .intro-block .intro-aside {
       margin-top: 28px;
     }
 
@@ -465,13 +473,13 @@
   <nav class="nav" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Leanne Summers — AI Workflow Designer, home">
-        <div class="nav__monogram" aria-hidden="true">LS</div>
-        <div class="nav__wordmark">
-          <div class="nav__wordmark-name">
+        <span class="nav__monogram" aria-hidden="true">LS</span>
+        <span class="nav__wordmark">
+          <span class="nav__wordmark-name">
             <span>Leanne</span> <span>Summers</span>
-          </div>
-          <div class="nav__wordmark-descriptor">AI Workflow Designer</div>
-        </div>
+          </span>
+          <span class="nav__wordmark-descriptor">AI Workflow Designer</span>
+        </span>
       </a>
       <ul class="nav__links">
         <li><a href="index.html">Home</a></li>
@@ -487,9 +495,11 @@
 
   <div class="nav__overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <button type="button" class="nav__overlay-close" aria-label="Close menu" id="nav-close">&times;</button>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <ul class="nav__overlay-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </div>
 
   <main id="main-content">
@@ -514,7 +524,7 @@
       <div class="intro-block__inner">
         <p>Leanne Summers builds AI-powered workflow systems for solo business owners who are done managing their tools and ready to trust them.</p>
         <p>She's not a developer. She's a working business owner who got fed up starting every day from scratch — and built her way out of it.</p>
-        <em>"Okay, that's the formalities done."</em>
+        <p class="intro-aside"><em>"Okay, that's the formalities done."</em></p>
       </div>
     </section>
 
@@ -523,11 +533,11 @@
       <div class="story-section__inner">
         <h2>Here's the actual story.</h2>
 
-        <p>I run a wedding celebrant and planning business in Vietnam. I also hold a sales role inside a digital consultancy — someone else's business, not mine, which means I'm accountable to a second set of deadlines, clients, and moving parts without controlling the systems around me.</p>
+        <p>I run a wedding and consultancy business in Vietnam — two sets of deadlines, clients, and moving parts. I take an AI-first approach to everything I do.</p>
         <p>Both very different. Both full of the kind of repetitive, brain-draining admin that steals the first two hours of your day before you've done a single thing that matters.</p>
         <p>So I built AI workflows and systems.</p>
         <p>AI connected to a database, feeding me what I need, when I need it, in one place. Overnight activity pulled and sorted. Priorities surfaced. Follow-ups drafted. Tasks handled. And then a little message that says: all done, enjoy your day.</p>
-        <p>I've been running this inside my own businesses for months. It works. Not in a "the demo looked great" way. In a "I actually trust it with my morning" way.</p>
+        <p>I've been running this across both sides of my business for months. It works. Not in a "the demo looked great" way. In a "I actually trust it with my work" way.</p>
 
 
       </div>
@@ -549,6 +559,17 @@
           <p>I also spent a long time as a copywriter. Which means I still own the quality bar on everything that goes out under my name or yours. No AI slop. No copy-paste-and-hope. No corner-cutting dressed up as efficiency.</p>
           <p>The whole point of a good system is that it handles the repeatable stuff so the things that actually matter — your voice, your relationships, your judgment — stay yours.</p>
           <p>That's what I build. Fast where speed is fine. Careful where it counts.</p>
+        </aside>
+
+        <hr class="story-divider">
+
+        <aside class="quality-block">
+          <h3>A word on trust.</h3>
+          <p>People are nervous about AI. Fair enough.</p>
+          <p>They don't know what it's doing, where it got its information, or whether it's quietly making decisions it has no business making.</p>
+          <p>I don't build mystery. Every system I create has clear rules: AI gathers, sorts, drafts, and reminds. It does not send, decide, or act on anything important without your final sign-off.</p>
+          <p>You'll always know what the system does. Where it gets its information. What it handles without you. What it won't touch without you.</p>
+          <p>That's not a disclaimer. That's the product.</p>
         </aside>
 
         <hr class="story-divider">
