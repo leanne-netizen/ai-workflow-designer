@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — Leanne Summers, AI Workflow Designer</title>
-  <meta name="description" content="I run a wedding and consultancy business in Vietnam. AI is how they both keep running (and me sane). Here's the actual story.">
-  <meta property="og:title" content="About — Leanne Summers, AI Workflow Designer">
-  <meta property="og:description" content="I run a wedding and consultancy business in Vietnam. AI is how they both keep running (and me sane).">
+  <title>Case Study: Building theleannesummers.com with AI — Leanne Summers</title>
+  <meta name="description" content="How I rebuilt my website in half a day using AI — capturing my brand, writing my voice guide, and shipping code I actually own. It took half a day to build and six months to launch.">
+  <meta property="og:title" content="Case Study: Building theleannesummers.com with AI">
+  <meta property="og:description" content="How I rebuilt my website in half a day using AI. It took half a day to build and six months to launch.">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,7 +72,7 @@
     .eyebrow {
       display: block;
       font-family: var(--font-body);
-      font-size: 24px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -242,13 +242,6 @@
     /* ─── Page wrapper ───────────────────────────────────────── */
     main { padding-top: 68px; }
 
-    /* ─── Narrow prose container ─────────────────────────────── */
-    .prose {
-      max-width: var(--max-w-body);
-      margin: 0 auto;
-      padding: 0 60px;
-    }
-
     /* ─── Page hero ──────────────────────────────────────────── */
     .page-hero {
       padding: 96px 60px 64px;
@@ -257,20 +250,6 @@
     .page-hero__inner {
       max-width: var(--max-w-body);
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 56px;
-      align-items: center;
-    }
-    .page-hero__portrait {
-      margin: 0;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-    }
-    .page-hero__portrait img {
-      width: 100%;
-      height: auto;
-      display: block;
     }
     .page-hero h1 {
       font-family: var(--font-heading);
@@ -278,49 +257,24 @@
       font-weight: 700;
       line-height: 1.15;
       color: var(--color-ink);
-      max-width: 600px;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
     }
     .page-hero__sub {
       font-family: var(--font-heading);
       font-style: italic;
       font-size: 22px;
       font-weight: 400;
-      color: var(--color-charcoal);
+      color: var(--color-coral);
       line-height: 1.4;
-    }
-
-    /* ─── Third-person intro block ───────────────────────────── */
-    .intro-block {
-      background: var(--color-fog);
-      padding: 64px 60px;
-    }
-    .intro-block__inner {
-      max-width: var(--max-w-body);
-      margin: 0 auto;
-      border-left: 3px solid var(--color-silver);
-      padding-left: 32px;
-    }
-    .intro-block p {
-      font-size: 18px;
-      line-height: 1.7;
-      color: var(--color-charcoal);
-    }
-    .intro-block p + p { margin-top: 20px; }
-    .intro-block em {
-      font-family: var(--font-heading);
-      font-style: italic;
-      font-size: 20px;
-      color: var(--color-ink);
-    }
-    .intro-block .intro-aside {
-      margin-top: 28px;
     }
 
     /* ─── Story section ──────────────────────────────────────── */
     .story-section {
       background: var(--color-white);
-      padding: 80px 60px;
+      padding: 64px 60px;
+    }
+    .story-section--fog {
+      background: var(--color-fog);
     }
     .story-section__inner {
       max-width: var(--max-w-body);
@@ -328,11 +282,11 @@
     }
     .story-section h2 {
       font-family: var(--font-heading);
-      font-size: 34px;
+      font-size: 30px;
       font-weight: 600;
       line-height: 1.2;
       color: var(--color-ink);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
     .story-section p {
       font-size: 17px;
@@ -340,77 +294,28 @@
       color: var(--color-charcoal);
     }
     .story-section p + p { margin-top: 20px; }
+    .story-section em {
+      font-family: var(--font-heading);
+      font-style: italic;
+    }
     .story-divider {
       border: none;
       border-top: 1px solid var(--color-fog);
       margin: 56px 0;
     }
 
-    /* ─── Quality callout ────────────────────────────────────── */
-    .quality-block {
+    /* ─── Pull quote ─────────────────────────────────────────── */
+    .pull-quote {
       border-left: 3px solid var(--color-coral);
       padding-left: 28px;
       margin: 48px 0;
     }
-    .quality-block h3 {
+    .pull-quote p {
       font-family: var(--font-heading);
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--color-ink);
-      margin-bottom: 16px;
-    }
-    .quality-block p {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--color-charcoal);
-    }
-    .quality-block p + p { margin-top: 16px; }
-
-    /* ─── Who this is for ────────────────────────────────────── */
-    .who-section {
-      background: var(--color-white);
-      padding: 80px 60px;
-    }
-    .who-section__inner {
-      max-width: var(--max-w-body);
-      margin: 0 auto;
-    }
-    .who-section h2 {
-      font-family: var(--font-heading);
-      font-size: 34px;
-      font-weight: 600;
-      line-height: 1.2;
-      color: var(--color-ink);
-      margin-bottom: 32px;
-    }
-    .who-section p {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--color-charcoal);
-    }
-    .who-section p + p { margin-top: 20px; }
-    .who-list {
-      list-style: none;
-      margin: 28px 0;
-    }
-    .who-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--color-charcoal);
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-    }
-    .who-list li:last-child { border-bottom: none; }
-    .who-list__mark {
-      width: 6px;
-      height: 6px;
-      background: var(--color-coral);
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 8px;
+      font-style: italic;
+      font-size: 22px !important;
+      line-height: 1.5 !important;
+      color: var(--color-ink) !important;
     }
 
     /* ─── CTA banner ─────────────────────────────────────────── */
@@ -452,16 +357,10 @@
       .nav__hamburger { display: flex; }
       .page-hero { padding: 80px 24px 48px; }
       .page-hero h1 { font-size: 32px; }
-      .page-hero__inner { grid-template-columns: 1fr; gap: 32px; }
-      .page-hero__portrait { max-width: 200px; }
-      .intro-block { padding: 48px 24px; }
-      .story-section { padding: 56px 24px; }
-      .who-section { padding: 56px 24px; }
+      .story-section { padding: 48px 24px; }
       .cta-banner { padding: 64px 24px; }
       .cta-banner h2 { font-size: 28px; }
       .footer { padding: 40px 24px; }
-      .prose { padding: 0 24px; }
-      .page-hero h1 { font-size: 34px; }
     }
   </style>
 </head>
@@ -483,8 +382,8 @@
       </a>
       <ul class="nav__links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active" aria-current="page">About</a></li>
-        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="case-studies.html" class="active" aria-current="page">Case Studies</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <button type="button" class="nav__hamburger" aria-label="Open menu" aria-expanded="false" id="nav-toggle">
@@ -506,88 +405,109 @@
 
   <main id="main-content">
 
-    <!-- ─── Section 1: Hero ─────────────────────────────────── -->
+    <!-- ─── Hero ──────────────────────────────────────────────── -->
     <section class="page-hero">
       <div class="page-hero__inner">
-        <div class="page-hero__text">
-          <span class="eyebrow">About</span>
-          <span class="accent-rule" aria-hidden="true"></span>
-          <h1>Leanne Summers</h1>
-          <p class="page-hero__sub">AI workflows built by someone who actually uses this stuff.</p>
-        </div>
-        <figure class="page-hero__portrait">
-          <img src="images/Leanne-Summers.jpg" alt="Leanne Summers, AI Workflow Designer, based in Hoi An, Vietnam" loading="eager">
-        </figure>
+        <span class="eyebrow">Case Study</span>
+        <span class="accent-rule" aria-hidden="true"></span>
+        <h1>Building theleannesummers.com with AI</h1>
+        <p class="page-hero__sub">The honest version: what took half a day, and why it still took six months to launch.</p>
       </div>
     </section>
 
-    <!-- ─── Section 2: Third-person intro ───────────────────── -->
-    <section class="intro-block">
-      <div class="intro-block__inner">
-        <p>Leanne Summers builds AI-powered workflow systems for solo business owners who are done managing their tools and ready to trust them.</p>
-        <p>She's not a developer. She's a working business owner who got fed up starting every day from scratch — and built her way out of it.</p>
-        <p class="intro-aside"><em>"Okay, that's the formalities done."</em></p>
+    <!-- ─── The starting point ────────────────────────────────── -->
+    <section class="story-section story-section--fog">
+      <div class="story-section__inner">
+        <h2>The starting point</h2>
+        <p>I already had a website. An old WordPress site from my copywriter days. I'd paid someone to build it — a proper designer, a proper build. I also paid for a brand stylist to create my brand guide: the colours, the type choices, the visual logic that made the whole thing feel considered and cohesive. It felt like me.</p>
+        <p>It had a look I liked. A tone of voice I'd spent years earning.</p>
+        <p>When I started positioning myself as an AI Workflow Designer, I needed a new site. I had a different story to tell and different humans to speak to.</p>
+        <p>What I didn't need was to pay someone again.</p>
+        <p>What I definitely didn't need was to dive into WordPress and start again.</p>
+        <p>So one night on the couch, I asked Claude how I could build a new website knowing that I already had a domain name and a hosting site. We had a plan and off we went.</p>
       </div>
     </section>
 
-    <!-- ─── Section 3: The actual story ─────────────────────── -->
+    <!-- ─── Step one ───────────────────────────────────────────── -->
     <section class="story-section">
       <div class="story-section__inner">
-        <h2>Here's the actual story.</h2>
-
-        <p>I run a wedding and consultancy business in Vietnam — two sets of deadlines, clients, and moving parts. I take an AI-first approach to everything I do.</p>
-        <p>Both very different. Both full of the kind of repetitive, brain-draining admin that steals the first two hours of your day before you've done a single thing that matters.</p>
-        <p>So I built AI workflows and systems.</p>
-        <p>AI connected to a database, feeding me what I need, when I need it, in one place. Overnight activity pulled and sorted. Priorities surfaced. Follow-ups drafted. Tasks handled. And then a little message that says: all done, enjoy your day.</p>
-        <p>I've been running this across both sides of my business for months. It works. Not in a "the demo looked great" way. In a "I actually trust it with my work" way.</p>
-
-
+        <h2>Step one: capture the brand before it disappears</h2>
+        <p>The new site wasn't going to be WordPress. But I wanted all the architecture. I wanted the new site to look like the old one, without having to redo it all again.</p>
+        <p>Problem: the colours, the type scale, the spacing decisions that made it feel like <em>me</em> — all of it lived entirely in the platform. Not in a document. Not anywhere I owned. Of course I had the brand guide and the assets, but not the look and feel of my "paid for" website.</p>
+        <p>So before touching anything else, I asked Claude to read the old site and reverse-engineer a brand style guide from it.</p>
+        <p>The result is a document called design-guide.md. It captures everything: the exact colour hex codes (Coral #FE7061, Teal #03A6A6, Ink #272525), the typeface pairing (Playfair Display for headings, Source Sans Pro for body), the spacing scale, the component rules, the things not to do. It even documents the logo usage rules and the mobile breakpoints.</p>
+        <p>That document is mine now. Not locked inside a platform. Not dependent on a subscription. Sitting in a folder I own, readable by any tool, transferable to any build.</p>
       </div>
     </section>
 
-    <!-- ─── Section 5: Who this is for ──────────────────────── -->
-    <section class="who-section">
-      <div class="who-section__inner">
-        <h2>Who this is for.</h2>
-        <p>Solo business owners who are competent, busy, and tired of being the person who holds everything in their head.</p>
-        <p>You don't need to know anything about AI. You need to know what's eating your mornings.</p>
-        <p>That's enough to start. <a href="contact.html">Tell me what's eating your mornings.</a></p>
-
-        <hr class="story-divider">
-
-        <aside class="quality-block">
-          <h3>A word on quality.</h3>
-          <p>I'm a former lawyer. Which means I was trained, for years, to care about the thing most people skip over — the detail that looks small until it isn't.</p>
-          <p>I also spent a long time as a copywriter. Which means I still own the quality bar on everything that goes out under my name or yours. No AI slop. No copy-paste-and-hope. No corner-cutting dressed up as efficiency.</p>
-          <p>The whole point of a good system is that it handles the repeatable stuff so the things that actually matter — your voice, your relationships, your judgment — stay yours.</p>
-          <p>That's what I build. Fast where speed is fine. Careful where it counts.</p>
-        </aside>
-
-        <hr class="story-divider">
-
-        <aside class="quality-block">
-          <h3>A word on trust.</h3>
-          <p>People are nervous about AI. Fair enough.</p>
-          <p>They don't know what it's doing, where it got its information, or whether it's quietly making decisions it has no business making.</p>
-          <p>I don't build mystery. Every system I create has clear rules: AI gathers, sorts, drafts, and reminds. It does not send, decide, or act on anything important without your final sign-off.</p>
-          <p>You'll always know what the system does. Where it gets its information. What it handles without you. What it won't touch without you.</p>
-          <p>That's not a disclaimer. That's the product.</p>
-        </aside>
-
-        <hr class="story-divider">
-
-        <aside class="quality-block">
-          <h3>Why I do this for other people.</h3>
-          <p>Because I know what it costs to not have it.</p>
-          <p>The low-grade anxiety of not knowing what matters most right now. The tab-switching. The list that never gets shorter. The sense that you're always catching up, never ahead.</p>
-          <p>They're not productivity problems. They're systems problems. And they're the kind of problems that go on the backburner because who's got time for all that AI stuff.</p>
-          <p>I created the workflows and systems because I got sick of spending the first two hours of the day on repetitive boring work.</p>
-          <p>I'm not selling you a course or a template. I build the actual thing, inside your actual business, connected to the tools you already use — and I don't leave until it's running properly.</p>
-        </aside>
+    <!-- ─── Step two ───────────────────────────────────────────── -->
+    <section class="story-section story-section--fog">
+      <div class="story-section__inner">
+        <h2>Step two: write the brand voice guide</h2>
+        <p>The design was one half. The other half was the words.</p>
+        <p>I've been writing professionally for a long time. I know how I sound. But "how I sound" isn't something most people can hand to an AI and get back intact. You have to make it explicit.</p>
+        <p>So I wrote a brand voice guide — the real one, not the watered-down version. Five pillars. The words I use. The words I never use. The difference between earned authority and empty claims. The reason dry wit works when it's quiet and fails when it's performed.</p>
+        <p>That guide became the filter for every sentence on the new site. When copy drifted into marketing language — <em>transform</em>, <em>seamless</em>, <em>unlock</em> — the guide caught it. When a sentence got vague where it should have been specific, the guide fixed it.</p>
+        <p>The result is copy that sounds like me. Because it was written using the rules I set.</p>
       </div>
     </section>
 
-    <!-- ─── Section 6: CTA banner ────────────────────────────── -->
+    <!-- ─── Step three ─────────────────────────────────────────── -->
+    <section class="story-section">
+      <div class="story-section__inner">
+        <h2>Step three: build the site</h2>
+        <p>With a style guide and a voice guide in place, the actual build was fast.</p>
+        <p>Claude wrote the HTML and CSS. Not "generated a template and hoped for the best" — wrote it against the design guide specs. Correct type scale. Correct colours. Correct spacing tokens. Correct mobile behaviour.</p>
+        <p>I reviewed. I changed words. I made decisions about what to keep and what to cut. The formatting, the layout, the structural decisions — those were mine in the sense that I'd defined them in the guide. The execution was AI's.</p>
+        <p>Three pages built and styled in an afternoon: Home, About, Contact. Plus Privacy and Terms based on the existing legal pages from the old site, edited down to what actually applied.</p>
+      </div>
+    </section>
+
+    <!-- ─── Step four ──────────────────────────────────────────── -->
+    <section class="story-section story-section--fog">
+      <div class="story-section__inner">
+        <h2>Step four: ship it</h2>
+        <p>The site lives in a GitHub repository. Plain HTML and CSS files — no build step, no CMS, no dependencies.</p>
+        <p>(Github sounds incredibly scary, and it took me a good year to build up the courage to create an account, but it's one of the best decisions I've ever made — and it's not scary at all. It's simply a file system that keeps every version of documents you've made.)</p>
+        <p>GitHub Pages serves it. The custom domain (theleannesummers.com) points to GitHub's servers. Deploying a change is: edit the file, commit, push. Done. Live in under two minutes.</p>
+        <p>If I want to change a word today, I change the word. If GitHub Pages shuts down, I move the files somewhere else and point the domain there. Nothing is locked in. Nothing has a monthly fee attached to it. The whole thing is mine in a way that a Squarespace site never quite is.</p>
+      </div>
+    </section>
+
+    <!-- ─── What it actually took ──────────────────────────────── -->
+    <section class="story-section">
+      <div class="story-section__inner">
+        <h2>What it actually took</h2>
+        <p>The brand capture, voice guide, copy, and build: one working day. Maybe a bit over.</p>
+
+        <aside class="pull-quote">
+          <p>The courage to launch it: six months.</p>
+        </aside>
+
+        <p>That part isn't a workflow problem. The assets were ready in April. The site sat in a GitHub repo, built, styled, polished — and I didn't push the button.</p>
+        <p>Because putting yourself out there in a new way, with a new title and a new offer, is harder than building the thing. The building is the easy part, once you know what you're building.</p>
+        <p>I finally pushed it live in June 2026.</p>
+      </div>
+    </section>
+
+    <!-- ─── What this means ────────────────────────────────────── -->
+    <section class="story-section story-section--fog">
+      <div class="story-section__inner">
+        <h2>What this means if you're doing the same thing</h2>
+        <p>If you have a brand that lives somewhere you don't own — a platform, a designer's head, an old folder with files you can't read — capture it now. Turn it into a document you can hand to any tool, any designer, any future version of yourself.</p>
+        <p>If you have a voice but you've never made it explicit — write it down. Not "friendly, professional, approachable." Voice pillars. Anti-examples that are just as specific as the examples. The exact words you reach for and the ones that make you cringe. If you don't know where to start, tell your preferred AI that you want to make a brand voice guide and ask it to interview you. You can make one together. Once it's written, it's repeatable.</p>
+
+        <aside class="pull-quote">
+          <p>You push the button on a Tuesday morning when you've run out of reasons not to.</p>
+        </aside>
+
+        <p>That's the actual workflow.</p>
+        <p>This case study, and the website it lives on, is one of those workflows. What used to take days of manual effort is now done. Which means the time is mine: for coffee, for a walk, for the decisions that actually need me rather than the tasks that just needed someone.</p>
+        <p>So hello. Welcome to my little corner of small-business-owner get-my-time-back land.</p>
+      </div>
+    </section>
+
+    <!-- ─── CTA banner ─────────────────────────────────────────── -->
     <section class="cta-banner">
       <h2>Tell me what's eating your mornings.</h2>
       <p>No pitch deck. No jargon. Just tell me what you do, what's repetitive and draining, and what you wish you could hand off.</p>
