@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Connect Open Brain</title>
+  <style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#18212b;background:#f5f3ef}body{margin:0;min-height:100vh;display:grid;place-items:center}.card{width:min(92vw,520px);background:white;border:1px solid #ddd6cb;border-radius:18px;padding:28px;box-shadow:0 16px 50px #2d241512}h1{margin-top:0}label{display:block;margin:14px 0 6px}input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #b9b1a6;border-radius:9px}button{margin-top:14px;padding:11px 16px;border:0;border-radius:9px;background:#a34832;color:white;font-weight:700;cursor:pointer}.secondary{background:#59636d}.row{display:flex;gap:10px;flex-wrap:wrap}.muted{color:#65707a;font-size:.92rem}.error{color:#a21d1d;white-space:pre-wrap}.hidden{display:none}
+  </style>
+</head>
+<body><main class="card">
+  <h1>Connect Open Brain</h1>
+  <p class="muted">Sign in as the Open Brain owner, then approve Claude's access. No access key is stored in Claude.</p>
+  <section id="login" class="hidden">
+    <label for="email">Email</label><input id="email" type="email" autocomplete="email">
+    <label for="password">Password</label><input id="password" type="password" autocomplete="current-password">
+    <div class="row"><button id="signIn">Sign in</button><button id="magic" class="secondary">Email me a sign-in link</button></div>
+  </section>
+  <section id="consent" class="hidden"><p id="request"></p><p class="muted" id="scopes"></p><div class="row"><button id="approve">Approve</button><button id="deny" class="secondary">Deny</button></div></section>
+  <p id="status" class="muted">Checking your sign-in…</p><p id="error" class="error"></p>
+</main>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const supabase=createClient('https://ajbqoszbkgxqrszbkyza.supabase.co', 'sb_publishable_K5jXLiDbyREuwc5uc9kCMg_j7k0heK0');
+const q=new URLSearchParams(location.search); const aid=q.get('authorization_id');
+const login=document.querySelector('#login'), consent=document.querySelector('#consent'), status=document.querySelector('#status'), error=document.querySelector('#error');
+function fail(message){error.textContent=message||'Something went wrong.';status.textContent='';}
+async function show(){
+ if(!aid){fail('Missing authorization request. Start again from Claude.');return;}
+ const {data:{user}}=await supabase.auth.getUser();
+ if(!user){login.classList.remove('hidden');status.textContent='Sign in to continue.';return;}
+ const {data,error:e}=await supabase.auth.oauth.getAuthorizationDetails(aid);
+ if(e){fail(e.message);return;} if(data.redirect_url){location.assign(data.redirect_url);return;}
+ document.querySelector('#request').textContent=(data.client?.name||'Claude')+' wants to connect to Open Brain.';
+ document.querySelector('#scopes').textContent='Requested permissions: '+(data.scope||'Open Brain access');
+ consent.classList.remove('hidden');status.textContent='Signed in. Review and approve below.';
+}
+document.querySelector('#signIn').onclick=async()=>{error.textContent='';const {error:e}=await supabase.auth.signInWithPassword({email:email.value,password:password.value});if(e)fail(e.message);else{login.classList.add('hidden');await show();}};
+document.querySelector('#magic').onclick=async()=>{error.textContent='';const {error:e}=await supabase.auth.signInWithOtp({email:email.value,options:{shouldCreateUser:false,emailRedirectTo:location.href}});if(e)fail(e.message);else status.textContent='Check your email for the sign-in link.';};
+document.querySelector('#approve').onclick=async()=>{const {data,error:e}=await supabase.auth.oauth.approveAuthorization(aid);if(e)fail(e.message);else location.assign(data.redirect_url);};
+document.querySelector('#deny').onclick=async()=>{const {data,error:e}=await supabase.auth.oauth.denyAuthorization(aid);if(e)fail(e.message);else location.assign(data.redirect_url);};
+await show();
+</script></body></html>
+
